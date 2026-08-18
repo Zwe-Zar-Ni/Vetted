@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
 }
 
 android {
@@ -51,4 +53,17 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.9.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
+
+    // Icons
+    implementation("androidx.compose.material:material-icons-extended")
+
+    // Koin Core & Android support
+    implementation("io.insert-koin:koin-android:4.2.2")
+    // Koin Jetpack Compose integration (provides koinViewModel())
+    implementation("io.insert-koin:koin-androidx-compose:4.2.2")
+
 }
