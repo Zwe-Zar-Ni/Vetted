@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.vaddshah2626.vetted.features.categories.ui.screens.CategoriesScreen
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
 import com.vaddshah2626.vetted.shared.components.NavBar
@@ -37,26 +38,31 @@ fun AppNavigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
 
-            // Onboarding screens
+            // ? Tab screens
+            navigation<NavRoutes.TabRoutes>(startDestination = NavRoutes.WishlistRoute) {
+                composable<NavRoutes.WishlistRoute> {
+                    WishlistScreen()
+                }
+            }
+
+            // ? Onboarding screens
             composable<NavRoutes.WelcomeRoute> {
                 WelcomeScreen(
+                    onContinue = {
+                        navController.navigate(NavRoutes.CategoriesListRoute)
+                    }
+                )
+            }
+
+            // ? Other Routes
+            composable<NavRoutes.CategoriesListRoute> {
+                CategoriesScreen(
                     onContinue = {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
                     }
                 )
-            }
-
-            // Tab screens
-            navigation<NavRoutes.TabRoutes>(startDestination = NavRoutes.WishlistRoute) {
-                composable<NavRoutes.WishlistRoute> {
-                    WishlistScreen(
-//                        onLoginClick = {
-//                            navController.navigate(NavRoutes.WelcomeRoute)
-//                        }
-                    )
-                }
             }
         }
     }

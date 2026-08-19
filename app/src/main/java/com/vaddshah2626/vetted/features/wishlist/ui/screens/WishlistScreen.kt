@@ -39,7 +39,7 @@ fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel()) {
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = {
-                viewModel.addWishlist(Wishlist(name="Earphones"))
+                viewModel.addWishlist(Wishlist(name = "Earphones"))
             }
         ) {
             Text("Add Wishlist")

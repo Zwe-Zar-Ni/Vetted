@@ -1,11 +1,13 @@
-package com.vaddshah2626.vetted.features.onboarding.screens
+package com.vaddshah2626.vetted.features.categories.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
@@ -20,33 +22,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.categories.ui.CategoryViewModel
+import com.vaddshah2626.vetted.shared.components.CategoryBadge
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun WelcomeScreen(
+fun CategoriesScreen(
     viewModel: CategoryViewModel = koinViewModel(),
     onContinue: () -> Unit
 ) {
-
     val categories by viewModel.categories.collectAsState()
 
-    if (categories.isEmpty()) {
-        viewModel.seedInitialCategories()
-    }
-
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            "Welcome",
-            style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.onBackground
-        )
+        Text("Categories : ${categories.size}", style = MaterialTheme.typography.headlineMedium)
+        Spacer(Modifier.height(16.dp))
+        LazyColumn() {
+            items(categories) { category ->
+                CategoryBadge(category)
+                Spacer(Modifier.height(12.dp))
+            }
+        }
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = onContinue,

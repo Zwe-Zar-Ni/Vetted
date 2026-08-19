@@ -16,4 +16,8 @@ sealed class NavRoutes {
 
     @Serializable
     object WishlistRoute : NavRoutes()
+
+    // ? Other screens
+    @Serializable
+    object CategoriesListRoute : NavRoutes()
 }
