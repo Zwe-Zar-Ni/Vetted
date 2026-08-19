@@ -2,7 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
 
+    // ? serialization for navigation
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
+
+    // ? For Room Databasse
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -54,16 +58,20 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // Navigation
+    // ? Navigation
     implementation("androidx.navigation:navigation-compose:2.9.8")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 
-    // Icons
+    // ? Icons
     implementation("androidx.compose.material:material-icons-extended")
 
-    // Koin Core & Android support
+    // ? Koin Core & Android support
     implementation("io.insert-koin:koin-android:4.2.2")
-    // Koin Jetpack Compose integration (provides koinViewModel())
+    // ? Koin Jetpack Compose integration (provides koinViewModel())
     implementation("io.insert-koin:koin-androidx-compose:4.2.2")
+
+    // ? Room Database
+    implementation("androidx.room:room-runtime:2.8.4")
+    ksp("androidx.room:room-compiler:2.8.4")
 
 }
