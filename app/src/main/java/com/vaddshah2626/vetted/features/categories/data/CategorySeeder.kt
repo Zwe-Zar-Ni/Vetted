@@ -1,6 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.data
-
-import com.vaddshah2626.vetted.features.categories.data.Category
+package com.vaddshah2626.vetted.features.categories.data
 
 val initialCategories = listOf(
     Category(id = 1, name = "Personal", icon = "personal"),

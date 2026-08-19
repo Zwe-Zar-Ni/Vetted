@@ -30,7 +30,7 @@ fun WelcomeScreen(
 
     val categories by viewModel.categories.collectAsState()
 
-    if (categories.isEmpty()) {
+    if (categories != null && categories!!.isEmpty()) {
         viewModel.seedInitialCategories()
     }
 

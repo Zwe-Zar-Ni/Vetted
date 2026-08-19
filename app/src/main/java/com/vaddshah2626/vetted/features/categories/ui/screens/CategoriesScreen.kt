@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.vaddshah2626.vetted.features.categories.data.Category
 import com.vaddshah2626.vetted.features.categories.ui.CategoryViewModel
 import com.vaddshah2626.vetted.shared.components.CategoryBadge
 import org.koin.androidx.compose.koinViewModel
@@ -37,10 +38,13 @@ fun CategoriesScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Categories : ${categories.size}", style = MaterialTheme.typography.headlineMedium)
+        Text(
+            "Categories : ${if (categories != null) categories?.size else 0}",
+            style = MaterialTheme.typography.headlineMedium
+        )
         Spacer(Modifier.height(16.dp))
         LazyColumn() {
-            items(categories) { category ->
+            items(categories ?: emptyList<Category>()) { category ->
                 CategoryBadge(category)
                 Spacer(Modifier.height(12.dp))
             }

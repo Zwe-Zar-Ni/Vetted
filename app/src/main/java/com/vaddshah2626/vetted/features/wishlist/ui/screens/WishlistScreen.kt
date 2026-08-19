@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
+import com.vaddshah2626.vetted.features.wishlist.data.toFormattedDate
 import com.vaddshah2626.vetted.features.wishlist.ui.WishlistViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -32,14 +33,68 @@ fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel()) {
         Text("Wishlist : ${wishlists.size}", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(16.dp))
         LazyColumn() {
-            items(wishlists) { wishlist ->
-                Text(text = wishlist.name, style = MaterialTheme.typography.bodyMedium)
+            items(
+                items = wishlists,
+                key = { it.item.id }
+            ) { itemWithDetails ->
+                Column() {
+                    Text(
+                        text = itemWithDetails.item.name,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.status.name,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.category.name,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.desireRating.toString(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.minTargetPrice.toString(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.maxTargetPrice.toString(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.variationsNote ?: "",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.prePurchaseNote ?: "",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.createdAt.toFormattedDate(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = itemWithDetails.item.coolOffUntil.toFormattedDate(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = {
-                viewModel.addWishlist(Wishlist(name = "Earphones"))
+                viewModel.addWishlist(
+                    Wishlist(
+                        name = "Earphones",
+                        categoryId = 1,
+                        desireRating = 1,
+                        minTargetPrice = 100.0,
+                        maxTargetPrice = 150.0,
+                        variationsNote = "variations Note",
+                        prePurchaseNote = "Pre purchase note",
+                    )
+                )
             }
         ) {
             Text("Add Wishlist")

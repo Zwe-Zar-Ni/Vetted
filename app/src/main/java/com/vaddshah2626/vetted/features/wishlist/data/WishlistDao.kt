@@ -4,12 +4,18 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WishlistDao {
-    @Query("SELECT * FROM wishlists")
-    fun getAllWishlist(): Flow<List<Wishlist>>
+
+    @Transaction
+    @Query("SELECT * FROM wishlists WHERE status IN (:status1, :status2) ORDER BY created_at DESC")
+    fun getAllWishlist(
+        status1: ItemStatus = ItemStatus.WISHLISTED,
+        status2: ItemStatus = ItemStatus.READY
+    ): Flow<List<WishlistWithDetails>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWishlist(wishlist: Wishlist)
