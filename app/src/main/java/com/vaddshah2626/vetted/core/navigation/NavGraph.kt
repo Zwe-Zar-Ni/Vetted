@@ -10,10 +10,10 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.navigation
+import androidx.navigation.compose.rememberNavController
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
-import com.vaddshah2626.vetted.features.wishlist.screens.WishlistScreen
+import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
 import com.vaddshah2626.vetted.shared.components.NavBar
 
 @Composable
