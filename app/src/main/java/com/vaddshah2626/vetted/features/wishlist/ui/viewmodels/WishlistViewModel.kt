@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui
+package com.vaddshah2626.vetted.features.wishlist.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

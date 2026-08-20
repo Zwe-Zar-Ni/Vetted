@@ -16,13 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.toFormattedDate
-import com.vaddshah2626.vetted.features.wishlist.ui.WishlistViewModel
+import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel()) {
+fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel(), onCreateClick: () -> Unit) {
     val wishlists by viewModel.wishlists.collectAsState()
 
     Column(
@@ -83,19 +82,20 @@ fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel()) {
         }
         Spacer(Modifier.height(16.dp))
         Button(
-            onClick = {
-                viewModel.addWishlist(
-                    Wishlist(
-                        name = "Earphones",
-                        categoryId = 1,
-                        desireRating = 1,
-                        minTargetPrice = 100.0,
-                        maxTargetPrice = 150.0,
-                        variationsNote = "variations Note",
-                        prePurchaseNote = "Pre purchase note",
-                    )
-                )
-            }
+            onClick = onCreateClick
+//            onClick = {
+//                viewModel.addWishlist(
+//                    Wishlist(
+//                        name = "Earphones",
+//                        categoryId = 1,
+//                        desireRating = 1,
+//                        minTargetPrice = 100.0,
+//                        maxTargetPrice = 150.0,
+//                        variationsNote = "variations Note",
+//                        prePurchaseNote = "Pre purchase note",
+//                    )
+//                )
+//            }
         ) {
             Text("Add Wishlist")
         }

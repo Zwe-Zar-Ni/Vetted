@@ -14,6 +14,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.vaddshah2626.vetted.features.categories.ui.screens.CategoriesScreen
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
+import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistCreateScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
 import com.vaddshah2626.vetted.shared.components.NavBar
 
@@ -34,14 +35,18 @@ fun AppNavigation() {
     }) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = NavRoutes.WelcomeRoute,
+            startDestination = NavRoutes.WishlistCreateRoute,
             modifier = Modifier.padding(innerPadding)
         ) {
 
             // ? Tab screens
             navigation<NavRoutes.TabRoutes>(startDestination = NavRoutes.WishlistRoute) {
                 composable<NavRoutes.WishlistRoute> {
-                    WishlistScreen()
+                    WishlistScreen(
+                        onCreateClick = {
+                            navController.navigate(NavRoutes.WishlistCreateRoute)
+                        }
+                    )
                 }
             }
 
@@ -58,6 +63,15 @@ fun AppNavigation() {
             composable<NavRoutes.CategoriesListRoute> {
                 CategoriesScreen(
                     onContinue = {
+                        navController.navigate(NavRoutes.TabRoutes) {
+                            popUpTo(NavRoutes.TabRoutes) { inclusive = true }
+                        }
+                    }
+                )
+            }
+            composable<NavRoutes.WishlistCreateRoute> {
+                WishlistCreateScreen(
+                    onNavigateBack = {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }

@@ -2,8 +2,10 @@ package com.vaddshah2626.vetted.shared.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CardGiftcard
@@ -22,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.categories.data.Category
@@ -43,27 +46,38 @@ fun getIconByName(iconName: String?): ImageVector {
 }
 
 @Composable
-fun CategoryBadge(category: Category) {
+fun CategoryBadge(category: Category, modifier: Modifier?, iconTint: Color?, textColor: Color?) {
     val vectorIcon = getIconByName(category.icon)
 
-    val rowShape = RoundedCornerShape(12.dp)
+    val rowShape = RoundedCornerShape(16.dp)
 
     Row(
-        modifier = Modifier
-            .border(width = 1.dp, color = MaterialTheme.colorScheme.onTertiary, shape = rowShape)
-            .clip(rowShape)
-            .background(
-                color = MaterialTheme.colorScheme.tertiary,
-                shape = rowShape
-            )
-            .padding(vertical = 2.dp, horizontal = 8.dp),
+        modifier = modifier
+            ?: Modifier
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onTertiary,
+                    shape = rowShape
+                )
+                .clip(rowShape)
+                .background(
+                    color = MaterialTheme.colorScheme.tertiary,
+                    shape = rowShape
+                )
+                .padding(vertical = 4.dp, horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Icon(
             imageVector = vectorIcon,
             contentDescription = category.name,
-            tint = MaterialTheme.colorScheme.onTertiary
+            tint = iconTint ?: MaterialTheme.colorScheme.onTertiary,
+            modifier = Modifier.size(14.dp)
         )
-        Text(text = category.name, color = MaterialTheme.colorScheme.onTertiary)
+        Text(
+            text = category.name,
+            color = textColor ?: MaterialTheme.colorScheme.onTertiary,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }

@@ -45,7 +45,7 @@ fun CategoriesScreen(
         Spacer(Modifier.height(16.dp))
         LazyColumn() {
             items(categories ?: emptyList<Category>()) { category ->
-                CategoryBadge(category)
+                CategoryBadge(category, null, null, null)
                 Spacer(Modifier.height(12.dp))
             }
         }
