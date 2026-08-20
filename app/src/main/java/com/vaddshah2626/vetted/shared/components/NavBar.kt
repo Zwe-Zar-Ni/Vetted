@@ -1,5 +1,7 @@
 package com.vaddshah2626.vetted.shared.components
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Checklist
@@ -13,8 +15,10 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -45,7 +49,9 @@ fun NavBar(navController: NavHostController) {
         } == true
     }
 
-    NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+    ) {
         navItems.forEach { item ->
             NavigationBarItem(
                 selected = isCurrentRoute(item),

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CardGiftcard
-import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.Home
@@ -27,33 +26,30 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.features.categories.data.Category
+import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
+import java.util.Locale.getDefault
 
-
-fun getIconByName(iconName: String?): ImageVector {
-    return when (iconName) {
-        "personal" -> Icons.Default.Person
-        "home" -> Icons.Default.Home
-        "work" -> Icons.Default.Work
-        "school" -> Icons.Default.School
-        "gadgets" -> Icons.Default.Devices
-        "hobby" -> Icons.Default.SportsGymnastics
-        "car" -> Icons.Default.DirectionsCar
-        "gift" -> Icons.Default.CardGiftcard
-        "others" -> Icons.Default.Category
-        else -> Icons.Default.Category
+fun getIconByStatus(status: ItemStatus): ImageVector {
+    return when (status) {
+        ItemStatus.WISHLISTED -> Icons.Default.Person
+        ItemStatus.READY -> Icons.Default.Home
+        ItemStatus.PURCHASED -> Icons.Default.Work
+        ItemStatus.LOST -> Icons.Default.School
+        ItemStatus.BROKEN -> Icons.Default.Devices
+        ItemStatus.DAMAGED -> Icons.Default.SportsGymnastics
+        ItemStatus.RETIRED -> Icons.Default.DirectionsCar
+        ItemStatus.USED_UP -> Icons.Default.CardGiftcard
     }
 }
 
 @Composable
-fun CategoryBadge(
-    category: Category,
+fun StatusBadge(
+    status: ItemStatus,
     modifier: Modifier?,
-    withText: Boolean = true,
     iconTint: Color = MaterialTheme.colorScheme.onTertiary,
     textColor: Color = MaterialTheme.colorScheme.onTertiary
 ) {
-    val vectorIcon = getIconByName(category.icon)
+    val vectorIcon = getIconByStatus(status)
 
     val rowShape = RoundedCornerShape(16.dp)
 
@@ -76,16 +72,14 @@ fun CategoryBadge(
     ) {
         Icon(
             imageVector = vectorIcon,
-            contentDescription = category.name,
+            contentDescription = status.name,
             tint = iconTint,
             modifier = Modifier.size(14.dp)
         )
-        if(withText) {
-            Text(
-                text = category.name,
-                color = textColor,
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
+        Text(
+            text = status.name.lowercase(getDefault()),
+            color = textColor,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
