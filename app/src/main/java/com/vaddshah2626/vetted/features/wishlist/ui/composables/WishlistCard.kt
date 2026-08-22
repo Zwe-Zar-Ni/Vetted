@@ -20,6 +20,7 @@ import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
 import com.vaddshah2626.vetted.features.wishlist.data.toFormattedDate
 import com.vaddshah2626.vetted.shared.components.CategoryBadge
 import com.vaddshah2626.vetted.shared.components.StatusBadge
+import com.vaddshah2626.vetted.shared.components.VariationNote
 
 @Composable
 fun WishlistCard(
@@ -46,6 +47,7 @@ fun WishlistCard(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(wishlist.item.name, style = MaterialTheme.typography.titleMedium)
+                    Text("${wishlist.item.desireRating}/5", style = MaterialTheme.typography.bodySmall)
                     if (wishlist.item.prePurchaseNote?.isNotEmpty() ?: false) {
                         Text(
                             wishlist.item.prePurchaseNote,
@@ -65,6 +67,7 @@ fun WishlistCard(
                             color = MaterialTheme.colorScheme.error
                         )
                     }
+                    VariationNote(wishlist.item.variationsNote , null)
                 }
             }
         }

@@ -185,7 +185,7 @@ fun WishlistCreateScreen(
                         label = { Text("Max Price") },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number,
-                            imeAction = ImeAction.Done
+                            imeAction = ImeAction.Next
                         ),
                         modifier = Modifier.weight(1f)
                     )
@@ -201,6 +201,10 @@ fun WishlistCreateScreen(
                     isError = state.titleError != null,
                     supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
                 )
             }
 
@@ -213,6 +217,10 @@ fun WishlistCreateScreen(
                     isError = state.titleError != null,
                     supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
                 )
             }
 
