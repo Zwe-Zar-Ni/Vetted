@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,26 +42,32 @@ fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel(), onCreateClick
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Wishlist : ${wishlists.size}", style = MaterialTheme.typography.headlineMedium)
+            Text("Wishlists", style = MaterialTheme.typography.headlineSmall)
             Button(
                 onClick = onCreateClick,
+                shape = MaterialTheme.shapes.small,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                modifier = Modifier.size(48.dp),
+                contentPadding = PaddingValues(0.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add",
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
-                Spacer(Modifier.width(4.dp))
-                Text("Add Item")
             }
         }
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(12.dp))
         LazyColumn() {
             items(
                 items = wishlists,
                 key = { it.item.id }
             ) { itemWithDetails ->
                 WishlistCard(itemWithDetails)
+                Spacer(Modifier.height(12.dp))
             }
         }
     }

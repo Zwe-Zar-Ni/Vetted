@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.shared.components
+package com.vaddshah2626.vetted.features.wishlist.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -70,7 +70,7 @@ fun CategoryBadge(
                     color = MaterialTheme.colorScheme.tertiary,
                     shape = rowShape
                 )
-                .padding(vertical = 4.dp, horizontal = 12.dp),
+                .padding(vertical = 4.dp, horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
@@ -78,13 +78,13 @@ fun CategoryBadge(
             imageVector = vectorIcon,
             contentDescription = category.name,
             tint = iconTint,
-            modifier = Modifier.size(14.dp)
+            modifier = Modifier.size(12.dp)
         )
         if(withText) {
             Text(
                 text = category.name,
                 color = textColor,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodySmall
             )
         }
     }

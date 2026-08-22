@@ -128,7 +128,7 @@ fun WishlistCreateScreen(
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Done,
-                        capitalization = KeyboardCapitalization.Words
+                        capitalization = KeyboardCapitalization.Sentences
                     ),
                 )
             }
@@ -214,7 +214,8 @@ fun WishlistCreateScreen(
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Next
+                        imeAction = ImeAction.Next,
+                        capitalization = KeyboardCapitalization.Words
                     ),
                 )
             }
@@ -231,7 +232,7 @@ fun WishlistCreateScreen(
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Done,
-                        capitalization = KeyboardCapitalization.Words
+                        capitalization = KeyboardCapitalization.Sentences
                     ),
                 )
             }

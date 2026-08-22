@@ -194,7 +194,7 @@ fun SourcesField(
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next,
-                            capitalization = KeyboardCapitalization.Words
+                            capitalization = KeyboardCapitalization.Sentences
                         ),
                     )
                     OutlinedTextField(

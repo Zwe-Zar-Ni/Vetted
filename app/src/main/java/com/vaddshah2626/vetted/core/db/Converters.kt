@@ -14,6 +14,11 @@ fun Long.toFormattedDate(pattern: String = "dd MMM yyyy HH:mm"): String {
         .format(DateTimeFormatter.ofPattern(pattern, Locale.getDefault()))
 }
 
+fun Double.toKString(): String {
+    return if (this >= 1_000) "${this / 1_000.0.toInt()}K" else this.toString()
+}
+
+
 class Converters {
 
     // --- ItemStatus Converters ---
