@@ -8,7 +8,8 @@ class WishlistRepository(private val wishlistDao: WishlistDao) {
 
     val categories: Flow<List<Category>> = wishlistDao.getAllCategories()
 
-    suspend fun addWishlist(wishlist: Wishlist) {
-        wishlistDao.insertWishlist(wishlist)
+    suspend fun addWishlist(wishlist: Wishlist) : Long {
+        val id = wishlistDao.insertWishlist(wishlist)
+        return id
     }
 }

@@ -1,32 +1,44 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.viewmodels
 
+import android.content.Context
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vaddshah2626.vetted.features.photos.data.Photo
+import com.vaddshah2626.vetted.features.photos.data.PhotoRepository
+import com.vaddshah2626.vetted.features.photos.data.PhotoType
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
+import com.vaddshah2626.vetted.features.wishlist.utils.saveImageToInternalStorage
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class WishlistFormState(
     val title: String = "",
-    val titleError: String? = null,
     val categoryId: Int? = null,
-    val categoryError: String? = null,
-    val desireRating: Int = 3,
+    val desireRating: Int = 5,
     val minTargetPrice: String = "",
     val maxTargetPrice: String = "",
     val variationsNote: String = "",
     val prePurchaseNote: String = "",
-    val isSubmitting: Boolean = false
+    val selectedPhotoPaths: List<String> = emptyList(),
+
+    val isSubmitting: Boolean = false,
+    val titleError: String? = null,
+    val categoryError: String? = null
 )
 
 class WishlistCreateViewModel(
-    private val repository: WishlistRepository
+    private val repository: WishlistRepository,
+    private val photoRepository: PhotoRepository
 ) : ViewModel() {
+
 
     val categories = repository.categories.stateIn(
         scope = viewModelScope,
@@ -66,6 +78,25 @@ class WishlistCreateViewModel(
         formState = formState.copy(prePurchaseNote = note)
     }
 
+    fun onPhotoSelected(context: Context, uri: Uri) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val savedPath = saveImageToInternalStorage(context, uri)
+            if (savedPath != null) {
+                withContext(Dispatchers.Main) {
+                    formState = formState.copy(
+                        selectedPhotoPaths = formState.selectedPhotoPaths + savedPath
+                    )
+                }
+            }
+        }
+    }
+
+    fun onRemovePhoto(path: String) {
+        formState = formState.copy(
+            selectedPhotoPaths = formState.selectedPhotoPaths - path
+        )
+    }
+
     // Submit handler with inline validation
     fun saveWishlistItem(onSuccess: () -> Unit) {
         val hasTitleError = formState.title.isBlank()
@@ -92,7 +123,16 @@ class WishlistCreateViewModel(
                 prePurchaseNote = formState.prePurchaseNote.ifBlank { null }
             )
 
-            repository.addWishlist(newItem)
+            val itemId = repository.addWishlist(newItem)
+
+            formState.selectedPhotoPaths.forEach { localFilePath ->
+                photoRepository.insertPhoto(Photo(
+                    itemId=itemId.toInt(),
+                    fileUri = localFilePath,
+                    photoType = PhotoType.PRODUCT
+                ))
+            }
+
             onSuccess()
         }
     }

@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     // ? serialization for navigation
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.4.0"
 
     // ? For Room Databasse
     id("com.google.devtools.ksp")
@@ -73,5 +73,9 @@ dependencies {
     // ? Room Database
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
+
+    // ? Coil for image loading
+    implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
 
 }

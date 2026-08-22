@@ -3,6 +3,7 @@ package com.vaddshah2626.vetted.features.wishlist.data
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.vaddshah2626.vetted.features.categories.data.Category
+import com.vaddshah2626.vetted.features.photos.data.Photo
 
 data class WishlistWithDetails(
     @Embedded
@@ -14,15 +15,16 @@ data class WishlistWithDetails(
     )
     val category: Category,
 
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "item_id"
+    )
+    val photos: List<Photo>
+
 //    @Relation(
 //        parentColumn = "id",
 //        entityColumn = "item_id"
 //    )
 //    val sources: List<SourceEntity>,
-//
-//    @Relation(
-//        parentColumn = "id",
-//        entityColumn = "item_id"
-//    )
-//    val photos: List<PhotoEntity>
+
 )

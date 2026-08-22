@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
 
     // ? For navigation
-    kotlin("jvm") version "2.2.0"
-    kotlin("plugin.serialization") version "2.2.0"
+    kotlin("jvm") version "2.4.0"
+    kotlin("plugin.serialization") version "2.4.0"
 
     // ? For Room Database
     id("com.google.devtools.ksp") version "2.3.4" apply false

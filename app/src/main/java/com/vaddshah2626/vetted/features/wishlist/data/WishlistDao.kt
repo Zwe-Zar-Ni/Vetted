@@ -22,5 +22,5 @@ interface WishlistDao {
     fun getAllCategories(): Flow<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWishlist(wishlist: Wishlist)
+    suspend fun insertWishlist(wishlist: Wishlist) : Long
 }

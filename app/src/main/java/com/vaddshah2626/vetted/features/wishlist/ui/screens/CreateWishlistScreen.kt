@@ -34,10 +34,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategorySelector
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoSector
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
@@ -48,6 +50,8 @@ fun WishlistCreateScreen(
     viewModel: WishlistCreateViewModel = koinViewModel(),
     onNavigateBack: () -> Unit
 ) {
+
+    val context = LocalContext.current
 
     val categories by viewModel.categories.collectAsState()
     val state = viewModel.formState
@@ -157,12 +161,12 @@ fun WishlistCreateScreen(
 
             // Desire Rating (1-5 Slider or Segmented Buttons)
             item {
-                Text("Desire Rating: ${state.desireRating} / 5")
+                Text("Desire Rating: ${state.desireRating} / 10")
                 Slider(
                     value = state.desireRating.toFloat(),
                     onValueChange = { viewModel.onDesireRatingChanged(it.roundToInt()) },
-                    valueRange = 1f..5f,
-                    steps = 3
+                    valueRange = 1f..10f,
+                    steps = 8
                 )
             }
 
@@ -202,7 +206,7 @@ fun WishlistCreateScreen(
                     supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
+                        keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Next
                     ),
                 )
@@ -218,9 +222,21 @@ fun WishlistCreateScreen(
                     supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
+                        keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Done
                     ),
+                )
+            }
+
+            item {
+                PhotoSector(
+                    photoPaths = state.selectedPhotoPaths,
+                    onPhotoSelected = { uri ->
+                        viewModel.onPhotoSelected(context, uri)
+                    },
+                    onRemovePhoto = { path ->
+                        viewModel.onRemovePhoto(path)
+                    }
                 )
             }
 
