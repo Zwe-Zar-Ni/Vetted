@@ -8,16 +8,6 @@ import androidx.room.PrimaryKey
 import com.vaddshah2626.vetted.features.categories.data.Category
 import kotlin.time.Clock
 
-enum class ItemStatus {
-    WISHLISTED,
-    READY,
-    PURCHASED,
-    USED_UP,
-    BROKEN,
-    DAMAGED,
-    LOST,
-    RETIRED
-}
 
 @Entity(
     tableName = "wishlists",
@@ -44,7 +34,7 @@ data class Wishlist(
 
     // --- Pre-Purchase / Evaluation Fields ---
     @ColumnInfo(name = "desire_rating")
-    val desireRating: Int, // Range 1 to 5
+    val desireRating: Int, // Range 1 to 10
 
     @ColumnInfo(name = "min_target_price")
     val minTargetPrice: Double,

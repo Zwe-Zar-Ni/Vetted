@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.photos.data.PhotoRepository
 import com.vaddshah2626.vetted.features.photos.data.PhotoType
+import com.vaddshah2626.vetted.features.sources.data.Source
+import com.vaddshah2626.vetted.features.sources.data.SourceRepository
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.utils.saveImageToInternalStorage
@@ -28,6 +30,7 @@ data class WishlistFormState(
     val variationsNote: String = "",
     val prePurchaseNote: String = "",
     val selectedPhotoPaths: List<String> = emptyList(),
+    val sources: List<Source> = emptyList(),
 
     val isSubmitting: Boolean = false,
     val titleError: String? = null,
@@ -36,7 +39,8 @@ data class WishlistFormState(
 
 class WishlistCreateViewModel(
     private val repository: WishlistRepository,
-    private val photoRepository: PhotoRepository
+    private val photoRepository: PhotoRepository,
+    private val sourceRepository: SourceRepository
 ) : ViewModel() {
 
 
@@ -97,6 +101,26 @@ class WishlistCreateViewModel(
         )
     }
 
+    fun onSourceAdd(source: Source) {
+        formState = formState.copy(
+            sources = formState.sources + source
+        )
+    }
+
+    fun onSourceEdit(index : Int , source : Source) {
+        formState = formState.copy(
+            sources = formState.sources.mapIndexed { i, src ->
+                if(i == index) source else src
+            }
+        )
+    }
+
+    fun onSourceRemove(index: Int) {
+        formState = formState.copy(
+            sources = formState.sources.filterIndexed { i, _ -> i != index }
+        )
+    }
+
     // Submit handler with inline validation
     fun saveWishlistItem(onSuccess: () -> Unit) {
         val hasTitleError = formState.title.isBlank()
@@ -126,11 +150,21 @@ class WishlistCreateViewModel(
             val itemId = repository.addWishlist(newItem)
 
             formState.selectedPhotoPaths.forEach { localFilePath ->
-                photoRepository.insertPhoto(Photo(
-                    itemId=itemId.toInt(),
-                    fileUri = localFilePath,
-                    photoType = PhotoType.PRODUCT
-                ))
+                photoRepository.insertPhoto(
+                    Photo(
+                        itemId = itemId.toInt(),
+                        fileUri = localFilePath,
+                        photoType = PhotoType.PRODUCT
+                    )
+                )
+            }
+
+            formState.sources.forEach {source ->
+                sourceRepository.insertSource(
+                    source.copy(
+                        itemId = itemId.toInt()
+                    )
+                )
             }
 
             onSuccess()

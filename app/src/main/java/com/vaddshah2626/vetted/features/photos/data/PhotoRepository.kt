@@ -14,8 +14,8 @@ class PhotoRepository(private val photoDao: PhotoDao) {
         photoDao.insertPhoto(photo)
     }
 
-    suspend fun insertPhotos(photo: List<Photo>) {
-        photoDao.insertPhotos(photo)
+    suspend fun insertPhotos(photos: List<Photo>) {
+        photoDao.insertPhotos(photos)
     }
 
     suspend fun deletePhoto(photo: Photo) {

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,9 +23,9 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
-import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.shared.components.CategoryBadge
 import com.vaddshah2626.vetted.shared.components.StatusBadge
 import com.vaddshah2626.vetted.shared.components.VariationNote
@@ -60,7 +59,10 @@ fun WishlistCard(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(wishlist.item.name, style = MaterialTheme.typography.titleMedium)
-                    Text("${wishlist.item.desireRating}/5", style = MaterialTheme.typography.bodySmall)
+                    Text(
+                        "${wishlist.item.desireRating}/10",
+                        style = MaterialTheme.typography.bodySmall
+                    )
                     if (wishlist.item.prePurchaseNote?.isNotEmpty() ?: false) {
                         Text(
                             wishlist.item.prePurchaseNote,
@@ -80,11 +82,11 @@ fun WishlistCard(
                             color = MaterialTheme.colorScheme.error
                         )
                     }
-                    VariationNote(wishlist.item.variationsNote , null)
+                    VariationNote(wishlist.item.variationsNote, null)
                 }
             }
             Row(
-                modifier=Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 for (photo in wishlist.photos) {
@@ -102,6 +104,21 @@ fun WishlistCard(
                 }
             }
             Spacer(Modifier.height(8.dp))
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                for (src in wishlist.sources) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(src.title)
+                        Text(if (src.price != null) src.price.toString() else "")
+                    }
+                }
+            }
         }
     }
     Spacer(Modifier.height(16.dp))

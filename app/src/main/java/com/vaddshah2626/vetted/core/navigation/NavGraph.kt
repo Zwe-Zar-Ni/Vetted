@@ -35,7 +35,7 @@ fun AppNavigation() {
     }) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = NavRoutes.TabRoutes,
+            startDestination = NavRoutes.WelcomeRoute,
             modifier = Modifier.padding(innerPadding)
         ) {
 

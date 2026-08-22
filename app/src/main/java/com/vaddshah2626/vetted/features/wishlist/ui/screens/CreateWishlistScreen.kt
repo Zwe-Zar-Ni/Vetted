@@ -36,10 +36,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategorySelector
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoSector
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
@@ -109,7 +111,7 @@ fun WishlistCreateScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
 
 
@@ -122,7 +124,12 @@ fun WishlistCreateScreen(
                     isError = state.titleError != null,
                     supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
-                    singleLine = true
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done,
+                        capitalization = KeyboardCapitalization.Words
+                    ),
                 )
             }
 
@@ -159,7 +166,7 @@ fun WishlistCreateScreen(
                 }
             }
 
-            // Desire Rating (1-5 Slider or Segmented Buttons)
+            // Desire Rating (1-10 Slider or Segmented Buttons)
             item {
                 Text("Desire Rating: ${state.desireRating} / 10")
                 Slider(
@@ -223,7 +230,8 @@ fun WishlistCreateScreen(
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done
+                        imeAction = ImeAction.Done,
+                        capitalization = KeyboardCapitalization.Words
                     ),
                 )
             }
@@ -236,6 +244,19 @@ fun WishlistCreateScreen(
                     },
                     onRemovePhoto = { path ->
                         viewModel.onRemovePhoto(path)
+                    }
+                )
+            }
+
+            item {
+                SourcesField(
+                    sources = state.sources,
+                    onAddSource = { source -> viewModel.onSourceAdd(source) },
+                    onEditSource = { index, source ->
+                        viewModel.onSourceEdit(index, source)
+                    },
+                    onDeleteSource = { index ->
+                        viewModel.onSourceRemove(index)
                     }
                 )
             }
