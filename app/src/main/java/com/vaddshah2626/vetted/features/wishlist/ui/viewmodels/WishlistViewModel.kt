@@ -15,10 +15,4 @@ class WishlistViewModel(private val repository: WishlistRepository) : ViewModel(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = emptyList()
     )
-
-    fun addWishlist(wishlist: Wishlist) {
-        viewModelScope.launch {
-            repository.addWishlist(wishlist)
-        }
-    }
 }

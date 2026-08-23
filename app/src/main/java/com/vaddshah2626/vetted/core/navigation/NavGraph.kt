@@ -12,9 +12,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.vaddshah2626.vetted.features.categories.ui.screens.CategoriesScreen
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistCreateScreen
+import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistDetailsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
 import com.vaddshah2626.vetted.shared.components.NavBar
 
@@ -45,6 +47,9 @@ fun AppNavigation() {
                     WishlistScreen(
                         onCreateClick = {
                             navController.navigate(NavRoutes.WishlistCreateRoute)
+                        },
+                        onWishlistClick = {wishlistId ->
+                            navController.navigate(NavRoutes.WishlistDetailsRoute(wishlistId))
                         }
                     )
                 }
@@ -71,6 +76,17 @@ fun AppNavigation() {
             }
             composable<NavRoutes.WishlistCreateRoute> {
                 WishlistCreateScreen(
+                    onNavigateBack = {
+                        navController.navigate(NavRoutes.TabRoutes) {
+                            popUpTo(NavRoutes.TabRoutes) { inclusive = true }
+                        }
+                    }
+                )
+            }
+            composable<NavRoutes.WishlistDetailsRoute> { backStackEntry ->
+                val parameters = backStackEntry.toRoute<NavRoutes.WishlistDetailsRoute>()
+                WishlistDetailsScreen(
+                    wishlistId = parameters.wishlistId,
                     onNavigateBack = {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }

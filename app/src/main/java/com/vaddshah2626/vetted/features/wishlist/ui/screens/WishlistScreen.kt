@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -31,11 +30,17 @@ import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel(), onCreateClick: () -> Unit) {
+fun WishlistScreen(
+    viewModel: WishlistViewModel = koinViewModel(),
+    onCreateClick: () -> Unit,
+    onWishlistClick: (wishlistId: Int) -> Unit
+) {
     val wishlists by viewModel.wishlists.collectAsState()
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp , 0.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp, 0.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -66,7 +71,9 @@ fun WishlistScreen(viewModel: WishlistViewModel = koinViewModel(), onCreateClick
                 items = wishlists,
                 key = { it.item.id }
             ) { itemWithDetails ->
-                WishlistCard(itemWithDetails)
+                WishlistCard(itemWithDetails, onWishlistClick = { wishlistId ->
+                    onWishlistClick(wishlistId)
+                })
                 Spacer(Modifier.height(12.dp))
             }
         }

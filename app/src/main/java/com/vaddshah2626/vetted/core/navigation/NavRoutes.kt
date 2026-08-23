@@ -23,4 +23,7 @@ sealed class NavRoutes {
 
     @Serializable
     object WishlistCreateRoute : NavRoutes()
+
+    @Serializable
+    data class WishlistDetailsRoute(val wishlistId : Int) : NavRoutes()
 }

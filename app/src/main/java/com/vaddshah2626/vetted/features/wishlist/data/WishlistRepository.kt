@@ -4,12 +4,17 @@ import com.vaddshah2626.vetted.features.categories.data.Category
 import kotlinx.coroutines.flow.Flow
 
 class WishlistRepository(private val wishlistDao: WishlistDao) {
-    val allWishlists: Flow<List<WishlistWithDetails>> = wishlistDao.getAllWishlist()
+    val allWishlists: Flow<List<WishlistWithDetails>> = wishlistDao.getPendingWishlist()
 
     val categories: Flow<List<Category>> = wishlistDao.getAllCategories()
 
     suspend fun addWishlist(wishlist: Wishlist) : Long {
         val id = wishlistDao.insertWishlist(wishlist)
         return id
+    }
+
+    fun getWishlistDetails(id : Int) : Flow<WishlistWithDetails> {
+        val wishlist = wishlistDao.getWishlistDetails(id)
+        return wishlist
     }
 }

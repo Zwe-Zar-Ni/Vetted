@@ -1,6 +1,7 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,12 +37,17 @@ import java.io.File
 
 @Composable
 fun WishlistCard(
-    wishlist: WishlistWithDetails
+    wishlist: WishlistWithDetails,
+    onWishlistClick : (wishlistId : Int) -> Unit
 ) {
     val context = LocalContext.current
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable(
+            onClick = {
+                onWishlistClick(wishlist.item.id)
+            }
+        ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         ),
@@ -83,7 +89,7 @@ fun WishlistCard(
                     Text(wishlist.item.name, style = MaterialTheme.typography.titleLarge)
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        "\uD83D\uDD25 ${wishlist.item.desireRating} / 10",
+                        "♥\uFE0E ${wishlist.item.desireRating} / 10",
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodySmall,
                         textAlign = TextAlign.Center,
