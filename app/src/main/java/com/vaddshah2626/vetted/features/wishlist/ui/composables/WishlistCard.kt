@@ -101,7 +101,6 @@ fun WishlistCard(
                             .padding(8.dp, 4.dp)
                     )
                     Row {
-                        Text("$ ", style = MaterialTheme.typography.bodySmall)
                         Text(
                             wishlist.item.minTargetPrice.toKString(),
                             style = MaterialTheme.typography.bodySmall

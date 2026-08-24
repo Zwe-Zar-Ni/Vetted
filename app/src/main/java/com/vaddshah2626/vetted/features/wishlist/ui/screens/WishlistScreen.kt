@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.WishlistCard
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistViewModel
+import com.vaddshah2626.vetted.ui.theme.TextTheme
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -47,7 +48,11 @@ fun WishlistScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Wishlists", style = MaterialTheme.typography.headlineSmall)
+            Text(
+                "Wishlists",
+                style = MaterialTheme.typography.headlineSmall,
+                color = TextTheme.colors.textPrimary
+            )
             Button(
                 onClick = onCreateClick,
                 shape = MaterialTheme.shapes.small,

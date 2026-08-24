@@ -1,6 +1,5 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,9 +23,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -53,6 +54,7 @@ import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
+import com.vaddshah2626.vetted.ui.theme.TextTheme
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import java.io.File
@@ -143,11 +145,13 @@ fun WishlistDetailsScreen(
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
+
+            // ? Photo carousel
             item {
                 if (!photos.isNullOrEmpty()) {
                     HorizontalMultiBrowseCarousel(
                         state = carouselState,
-                        preferredItemWidth = 320.dp, // The target width for fully visible items
+                        preferredItemWidth = 320.dp,
                         itemSpacing = 8.dp,
 
                         modifier = Modifier
@@ -170,9 +174,10 @@ fun WishlistDetailsScreen(
                 }
             }
 
+            // ? item name, category, rating
             item {
                 if (item != null) {
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(20.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -186,19 +191,30 @@ fun WishlistDetailsScreen(
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         Text(
-                            text = ratingIndicator
+                            text = ratingIndicator,
+                            color = TextTheme.colors.textSecondary
                         )
                         Text(
                             "Desire Rating : ${item.desireRating} / 10",
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodySmall,
+                            color = TextTheme.colors.textSecondary
                         )
                     }
                 }
             }
 
+            // ? Pre Purchase Note
+            item {
+                if (!item?.prePurchaseNote.isNullOrEmpty()) {
+                    Spacer(Modifier.height(20.dp))
+                    Text(item.prePurchaseNote ?: "")
+                }
+            }
+
+            // ? Cool off warning card
             item {
                 if (item?.status == ItemStatus.WISHLISTED) {
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(20.dp))
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.errorContainer.copy(0.4f)
@@ -223,7 +239,11 @@ fun WishlistDetailsScreen(
                                 modifier = Modifier.weight(1f),
                                 verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Ready to buy at", style = MaterialTheme.typography.bodySmall)
+                                Text(
+                                    "Ready to buy at",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = TextTheme.colors.textSecondary
+                                )
                                 Text(
                                     item.coolOffUntil.toFormattedDate(),
                                     style = MaterialTheme.typography.bodyLarge
@@ -234,14 +254,12 @@ fun WishlistDetailsScreen(
                 }
             }
 
+            // ? Price Range
             item {
                 if (item != null) {
-                    Spacer(Modifier.height(16.dp))
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.secondary
-                        ),
-                        shape = MaterialTheme.shapes.small
+                    Spacer(Modifier.height(20.dp))
+                    OutlinedCard(
+                        shape = MaterialTheme.shapes.small,
                     ) {
                         Row(
                             modifier = Modifier
@@ -253,7 +271,11 @@ fun WishlistDetailsScreen(
                                 modifier = Modifier.weight(1f),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                Text("MIN TARGET PRICE", style = MaterialTheme.typography.bodySmall)
+                                Text(
+                                    "MIN TARGET PRICE",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = TextTheme.colors.textTertiary
+                                )
                                 Text(
                                     item.minTargetPrice.toKString(),
                                     style = MaterialTheme.typography.bodyLarge
@@ -269,7 +291,8 @@ fun WishlistDetailsScreen(
                                 ) {
                                     Text(
                                         "MAX TARGET PRICE",
-                                        style = MaterialTheme.typography.bodySmall
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = TextTheme.colors.textTertiary
                                     )
                                     Text(
                                         item.minTargetPrice.toKString(),
@@ -282,48 +305,50 @@ fun WishlistDetailsScreen(
                 }
             }
 
+            // ? Variations note
             item {
                 if (item != null) {
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(20.dp))
                     Column(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Variations", style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            "Variations",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = TextTheme.colors.textTertiary
+                        )
                         Spacer(Modifier.height(4.dp))
                         VariationNote(item.variationsNote, null)
                     }
                 }
             }
 
+            // ? Sources
             item {
                 if (!sources.isNullOrEmpty()) {
-                    Spacer(Modifier.height(16.dp))
-                    Text("Available Sources", style = MaterialTheme.typography.bodyLarge)
+                    Spacer(Modifier.height(20.dp))
+                    Text(
+                        "Available Sources",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = TextTheme.colors.textTertiary
+                    )
                     Spacer(Modifier.height(4.dp))
-                    for (src in sources) {
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.background
-                            ),
-                            shape = MaterialTheme.shapes.small,
-                            border = CardDefaults.outlinedCardBorder()
-                        ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
+                    ) {
+                        for (src in sources) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Link,
                                     contentDescription = "Source",
-                                    modifier = Modifier
-                                        .background(
-                                            color = Color.Transparent
-                                        )
-                                        .padding(4.dp),
+                                    tint = TextTheme.colors.textSecondary
                                 )
                                 Text(
                                     src.title,
@@ -333,35 +358,24 @@ fun WishlistDetailsScreen(
                                 Icon(
                                     imageVector = Icons.Default.Edit,
                                     contentDescription = "Edit",
+                                    tint = TextTheme.colors.textTertiary,
                                     modifier = Modifier
-                                        .size(28.dp)
-                                        .background(
-                                            color = MaterialTheme.colorScheme.surface,
-                                            shape = MaterialTheme.shapes.extraSmall
-                                        )
-                                        .padding(4.dp),
+                                        .size(21.dp)
                                 )
                                 Icon(
                                     imageVector = Icons.Default.Delete,
                                     contentDescription = "Delete",
+                                    tint = TextTheme.colors.textTertiary,
                                     modifier = Modifier
-                                        .size(28.dp)
-                                        .background(
-                                            color = MaterialTheme.colorScheme.surface,
-                                            shape = MaterialTheme.shapes.extraSmall
-                                        )
-                                        .padding(4.dp),
+                                        .size(21.dp)
                                 )
                             }
+                            HorizontalDivider(
+                                thickness = 1.dp,
+                                color = MaterialTheme.colorScheme.surfaceContainer
+                            )
                         }
                     }
-                }
-            }
-
-            item {
-                if (item != null) {
-                    Spacer(Modifier.height(16.dp))
-                    Text(item.prePurchaseNote ?: "")
                 }
             }
 

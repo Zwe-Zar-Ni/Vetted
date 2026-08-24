@@ -26,7 +26,7 @@ fun VariationNote(
             Card(
                 shape = MaterialTheme.shapes.small,
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer
                 )
             ) {
                 Text(n , modifier= Modifier.padding(12.dp , 6.dp) , color= MaterialTheme.colorScheme.onSurface)
