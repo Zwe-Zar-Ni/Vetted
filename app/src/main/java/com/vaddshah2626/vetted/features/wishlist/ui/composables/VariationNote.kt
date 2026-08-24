@@ -120,8 +120,8 @@ fun VariationNote(
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Next,
-                        capitalization = KeyboardCapitalization.Sentences
+                        imeAction = ImeAction.Done,
+                        capitalization = KeyboardCapitalization.Words
                     ),
                 )
                 Spacer(Modifier.height(24.dp))
