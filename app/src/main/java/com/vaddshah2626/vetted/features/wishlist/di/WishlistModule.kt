@@ -16,5 +16,5 @@ val wishlistModule = module {
     singleOf(::WishlistRepository)
     viewModelOf(::WishlistViewModel)
     viewModelOf(::WishlistCreateViewModel)
-    viewModel { (wishlistId: Int) -> WishlistDetailsViewModel(get(), wishlistId) }
+    viewModel { (wishlistId: Int) -> WishlistDetailsViewModel(get(), wishlistId , get()) }
 }

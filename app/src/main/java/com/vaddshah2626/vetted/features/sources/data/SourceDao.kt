@@ -13,16 +13,13 @@ interface SourceDao {
     suspend fun insertSource(source: Source): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSources(photos: List<Source>)
+    suspend fun insertSources(sources: List<Source>)
 
     @Update
     suspend fun updateSource(source: Source)
 
     @Delete
     suspend fun deleteSource(source: Source)
-
-    @Query("DELETE FROM sources WHERE id = :sourceId")
-    suspend fun deleteSourceById(sourceId: Int)
 
     @Query("SELECT * FROM sources WHERE item_id = :itemId ORDER BY created_at DESC")
     fun getSourcesForItem(itemId: Int): List<Source>

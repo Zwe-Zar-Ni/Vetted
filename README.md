@@ -2,7 +2,7 @@
 
 ## Impulse-buy control and post-purchase lifecycle management
 
-Impulse Buy Mitigation: Letting user to record a 1–5 desire rating, price ranges, and variants
+Impulse Buy Mitigation: Letting user record a 1–5 desire rating, price ranges, and variants
 creates intentional friction.
 This acts as a cooling-off period, helping user avoid regretful purchases.
 

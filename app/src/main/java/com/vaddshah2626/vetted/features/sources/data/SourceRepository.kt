@@ -14,12 +14,12 @@ class SourceRepository(private val sourceDao: SourceDao) {
         sourceDao.insertSources(sources)
     }
 
-    suspend fun deleteSource(source: Source) {
-        sourceDao.deleteSource(source)
+    suspend fun updateSource(source : Source ) {
+        sourceDao.updateSource(source)
     }
 
-    suspend fun deleteSourceById(sourceId: Int) {
-        sourceDao.deleteSourceById(sourceId)
+    suspend fun deleteSource(source : Source) {
+        sourceDao.deleteSource(source)
     }
 
 }

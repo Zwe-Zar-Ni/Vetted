@@ -1,5 +1,6 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,20 +8,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Link
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -36,9 +37,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.sources.data.Source
+import com.vaddshah2626.vetted.ui.theme.TextTheme
 import kotlinx.coroutines.launch
 
 
@@ -95,55 +97,66 @@ fun SourcesField(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Sources")
-            OutlinedButton(
+            Text(
+                "Available Sources",
+                style = MaterialTheme.typography.bodyLarge,
+                color = TextTheme.colors.textTertiary
+            )
+            IconButton(
                 onClick = {
                     sheetOpen = true
-                }
+                },
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = ""
+                    contentDescription = "Add More Source",
+                    tint = TextTheme.colors.textSecondary
                 )
-                Text("Add")
             }
         }
         Spacer(Modifier.height(8.dp))
         for ((i, src) in sources.withIndex()) {
-            Card(
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                shape = MaterialTheme.shapes.small,
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainer
-                )
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
+                Icon(
+                    imageVector = Icons.Default.Link,
+                    contentDescription = "Source",
+                    tint = TextTheme.colors.textSecondary
+                )
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .weight(1f)
+                        .height(30.dp),
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Column(
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text(src.title, style = MaterialTheme.typography.bodyLarge)
-                        if (src.price != null) {
-                            Text(
-                                src.price.toString(),
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-                        if (src.url != null) {
-                            Text(
-                                src.url,
-                                style = MaterialTheme.typography.bodySmall,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        }
+                    Text(
+                        src.title,
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextTheme.colors.textSecondary
+                    )
+                    if (src.price != null) {
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            src.price.toKString(),
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextTheme.colors.textPrimary
+                        )
                     }
-                    Row {
-                        IconButton(
+                }
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Edit",
+                    tint = TextTheme.colors.textTertiary,
+                    modifier = Modifier
+                        .size(21.dp)
+                        .clickable(
                             onClick = {
                                 title = src.title
                                 url = src.url ?: ""
@@ -152,30 +165,32 @@ fun SourcesField(
                                 editIndex = i
                                 sheetOpen = true
                             },
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Edit,
-                                contentDescription = "Edit"
-                            )
-                        }
-                        IconButton(
+                        )
+                )
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete",
+                    tint = TextTheme.colors.textTertiary,
+                    modifier = Modifier
+                        .size(21.dp)
+                        .clickable(
                             onClick = {
                                 onDeleteSource(i)
                             },
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
-                                contentDescription = "Delete"
-                            )
-                        }
-                    }
-                }
+                        )
+                )
             }
-            Spacer(Modifier.height(4.dp))
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.surfaceContainer
+            )
         }
         if (sheetOpen) {
             ModalBottomSheet(
                 onDismissRequest = {
+                    title = ""
+                    url = ""
+                    price = ""
                     sheetOpen = false
                 },
                 sheetState = sheetState,
@@ -204,7 +219,7 @@ fun SourcesField(
                         },
                         label = { Text("Source Url") },
                         keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
+                            keyboardType = KeyboardType.Uri,
                             imeAction = ImeAction.Next,
                             capitalization = KeyboardCapitalization.None
                         ),
@@ -239,7 +254,7 @@ fun SourcesField(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Add")
+                        Text(if (isEditing) "Edit" else "Add")
                     }
                 }
             }
