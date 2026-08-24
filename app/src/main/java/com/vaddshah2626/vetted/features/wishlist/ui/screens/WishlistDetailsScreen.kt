@@ -278,7 +278,15 @@ fun WishlistDetailsScreen(
             item {
                 if (item != null) {
                     Spacer(Modifier.height(20.dp))
-                    VariationNote(item.variationsNote)
+                    VariationNote(item.variationsNote, onEditNote = { note ->
+                        scope.launch {
+                            viewModel.updateWishlist(
+                                item.copy(
+                                    variationsNote = note
+                                )
+                            )
+                        }
+                    })
                 }
             }
 

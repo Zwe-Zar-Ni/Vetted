@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vaddshah2626.vetted.features.sources.data.Source
 import com.vaddshah2626.vetted.features.sources.data.SourceRepository
+import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,6 +35,10 @@ class WishlistDetailsViewModel(
 
     fun refreshWishlist() {
         refreshTrigger.value = System.currentTimeMillis()
+    }
+
+    suspend fun updateWishlist(wishlist: Wishlist) {
+        repository.updateWishlist(wishlist)
     }
 
     suspend fun addSource(source: Source) {
