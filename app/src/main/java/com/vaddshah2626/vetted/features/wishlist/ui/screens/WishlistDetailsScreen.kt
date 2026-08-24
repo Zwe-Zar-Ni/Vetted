@@ -6,18 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -33,31 +29,26 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.VerticalDivider
-import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
-import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
-import java.io.File
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +57,8 @@ fun WishlistDetailsScreen(
     wishlistId: Int,
     onNavigateBack: () -> Unit
 ) {
-    val context = LocalContext.current
+
+    val scope = rememberCoroutineScope()
 
     val viewModel: WishlistDetailsViewModel = koinViewModel(
         parameters = { parametersOf(wishlistId) }
@@ -86,8 +78,6 @@ fun WishlistDetailsScreen(
             "♡"
         }
     }
-
-    val carouselState = rememberCarouselState(itemCount = { photos?.size ?: 0 })
 
     Scaffold(
         topBar = {
@@ -148,30 +138,9 @@ fun WishlistDetailsScreen(
 
             // ? Photo carousel
             item {
-                if (!photos.isNullOrEmpty()) {
-                    HorizontalMultiBrowseCarousel(
-                        state = carouselState,
-                        preferredItemWidth = 320.dp,
-                        itemSpacing = 8.dp,
-
-                        modifier = Modifier
-                            .height(280.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                    ) { index ->
-                        val photo = photos[index]
-                        AsyncImage(
-                            model = ImageRequest.Builder(context)
-                                .data(File(photo.fileUri))
-                                .crossfade(true)
-                                .build(),
-                            contentDescription = "Photo ${photo.id}",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(RoundedCornerShape(12.dp))
-                        )
-                    }
-                }
+                PhotoCarousel(
+                    photos = photos ?: emptyList()
+                )
             }
 
             // ? item name, category, rating
@@ -207,7 +176,7 @@ fun WishlistDetailsScreen(
             item {
                 if (!item?.prePurchaseNote.isNullOrEmpty()) {
                     Spacer(Modifier.height(20.dp))
-                    Text(item.prePurchaseNote ?: "")
+                    Text(item.prePurchaseNote)
                 }
             }
 
@@ -309,74 +278,58 @@ fun WishlistDetailsScreen(
             item {
                 if (item != null) {
                     Spacer(Modifier.height(20.dp))
-                    Column(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            "Variations",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = TextTheme.colors.textTertiary
-                        )
-                        Spacer(Modifier.height(4.dp))
-                        VariationNote(item.variationsNote, null)
-                    }
+                    VariationNote(item.variationsNote, onEditNote = { note ->
+                        scope.launch {
+                            viewModel.updateWishlist(
+                                item.copy(
+                                    variationsNote = note
+                                )
+                            )
+                        }
+                    })
                 }
             }
 
             // ? Sources
             item {
-                if (!sources.isNullOrEmpty()) {
-                    Spacer(Modifier.height(20.dp))
-                    Text(
-                        "Available Sources",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = TextTheme.colors.textTertiary
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(2.dp)
-                    ) {
-                        for (src in sources) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Link,
-                                    contentDescription = "Source",
-                                    tint = TextTheme.colors.textSecondary
+                Spacer(Modifier.height(20.dp))
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.surfaceContainer
+                )
+                SourcesField(
+                    sources = sources ?: emptyList(),
+                    onAddSource = { src ->
+                        scope.launch {
+                            viewModel.addSource(
+                                src.copy(
+                                    itemId = item?.id ?: 0
                                 )
-                                Text(
-                                    src.title,
-                                    modifier = Modifier.weight(1f),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                                Icon(
-                                    imageVector = Icons.Default.Edit,
-                                    contentDescription = "Edit",
-                                    tint = TextTheme.colors.textTertiary,
-                                    modifier = Modifier
-                                        .size(21.dp)
-                                )
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = "Delete",
-                                    tint = TextTheme.colors.textTertiary,
-                                    modifier = Modifier
-                                        .size(21.dp)
-                                )
-                            }
-                            HorizontalDivider(
-                                thickness = 1.dp,
-                                color = MaterialTheme.colorScheme.surfaceContainer
                             )
                         }
+                    },
+                    onEditSource = { index, src ->
+                        val originalSource = sources?.get(index) ?: return@SourcesField
+                        scope.launch {
+                            viewModel.updateSource(
+                                src.copy(
+                                    title = src.title,
+                                    url = src.url,
+                                    price = src.price,
+                                    id = originalSource.id,
+                                    itemId = originalSource.itemId,
+                                    isPrimary = originalSource.isPrimary
+                                )
+                            )
+                        }
+                    },
+                    onDeleteSource = { index ->
+                        val src = sources?.get(index) ?: return@SourcesField
+                        scope.launch {
+                            viewModel.deleteSource(src)
+                        }
                     }
-                }
+                )
             }
 
         }

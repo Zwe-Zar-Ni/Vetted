@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.vaddshah2626.vetted.features.categories.data.Category
 import kotlinx.coroutines.flow.Flow
 
@@ -29,4 +30,7 @@ interface WishlistDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWishlist(wishlist: Wishlist) : Long
+
+    @Update
+    suspend fun updateWishlist(wishlist : Wishlist)
 }
