@@ -38,16 +38,18 @@ import java.io.File
 @Composable
 fun WishlistCard(
     wishlist: WishlistWithDetails,
-    onWishlistClick : (wishlistId : Int) -> Unit
+    onWishlistClick: (wishlistId: Int) -> Unit
 ) {
     val context = LocalContext.current
 
     Card(
-        modifier = Modifier.fillMaxWidth().clickable(
-            onClick = {
-                onWishlistClick(wishlist.item.id)
-            }
-        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                onClick = {
+                    onWishlistClick(wishlist.item.id)
+                }
+            ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         ),
@@ -82,66 +84,67 @@ fun WishlistCard(
                             .align(Alignment.Center)
                     )
                 }
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(wishlist.item.name, style = MaterialTheme.typography.titleLarge)
-                    Spacer(Modifier.height(2.dp))
-                    Text(
-                        "♥\uFE0E ${wishlist.item.desireRating} / 10",
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodySmall,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .background(
-                                color = MaterialTheme.colorScheme.surface,
-                                shape = CircleShape
-                            )
-                            .padding(8.dp, 4.dp)
-                    )
-                    Row {
-                        Text(
-                            wishlist.item.minTargetPrice.toKString(),
-                            style = MaterialTheme.typography.bodySmall
+            }
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(wishlist.item.name, style = MaterialTheme.typography.titleLarge)
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    "♥\uFE0E ${wishlist.item.desireRating} / 10",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .background(
+                            color = MaterialTheme.colorScheme.surface,
+                            shape = CircleShape
                         )
-                        if (wishlist.item.maxTargetPrice != null) {
-                            Text(" - ", style = MaterialTheme.typography.bodySmall)
-                            Text(
-                                wishlist.item.maxTargetPrice.toKString(),
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-                    }
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                    horizontalAlignment = Alignment.End
-                ) {
-                    CategoryBadge(wishlist.category, null)
-                    Spacer(Modifier.height(2.dp))
+                        .padding(8.dp, 4.dp)
+                )
+                Row {
                     Text(
-                        text = when (wishlist.item.status) {
-                            ItemStatus.WISHLISTED -> "READY IN"
-                            ItemStatus.READY -> "READY TO BUY"
-                            else -> ""
-                        },
-                        color = when (wishlist.item.status) {
-                            ItemStatus.WISHLISTED -> MaterialTheme.colorScheme.error
-                            ItemStatus.READY -> Color.Green
-                            else -> MaterialTheme.colorScheme.onSurface
-                        },
-                        style = MaterialTheme.typography.bodyMedium,
+                        wishlist.item.minTargetPrice.toKString(),
+                        style = MaterialTheme.typography.bodySmall
                     )
-                    if (wishlist.item.status == ItemStatus.WISHLISTED) {
+                    if (wishlist.item.maxTargetPrice != null) {
+                        Text(" - ", style = MaterialTheme.typography.bodySmall)
                         Text(
-                            wishlist.item.coolOffUntil.toFormattedDate(),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error
+                            wishlist.item.maxTargetPrice.toKString(),
+                            style = MaterialTheme.typography.bodySmall
                         )
                     }
                 }
             }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.End
+            ) {
+                CategoryBadge(wishlist.category, null)
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = when (wishlist.item.status) {
+                        ItemStatus.WISHLISTED -> "READY IN"
+                        ItemStatus.READY -> "READY TO BUY"
+                        else -> ""
+                    },
+                    color = when (wishlist.item.status) {
+                        ItemStatus.WISHLISTED -> MaterialTheme.colorScheme.error
+                        ItemStatus.READY -> Color.Green
+                        else -> MaterialTheme.colorScheme.onSurface
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                if (wishlist.item.status == ItemStatus.WISHLISTED) {
+                    Text(
+                        wishlist.item.coolOffUntil.toFormattedDate(),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+
         }
     }
 }
