@@ -36,9 +36,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
+import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
@@ -139,7 +141,23 @@ fun WishlistDetailsScreen(
             // ? Photo carousel
             item {
                 PhotoCarousel(
-                    photos = photos ?: emptyList()
+                    photos = photos ?: emptyList(),
+                    onDeletePhoto = { index ->
+                        val photo = photos?.get(index) ?: return@PhotoCarousel
+                        scope.launch {
+                            viewModel.deletePhoto(photo)
+                        }
+                    },
+                    onAddPhoto = { uri ->
+                        scope.launch {
+                            viewModel.addPhoto(
+                                Photo(
+                                    fileUri = uri,
+                                    itemId = item?.id ?: 0
+                                )
+                            )
+                        }
+                    }
                 )
             }
 
@@ -219,6 +237,23 @@ fun WishlistDetailsScreen(
                                 )
                             }
                         }
+                    }
+                } else if (item?.status == ItemStatus.READY) {
+                    Spacer(Modifier.height(20.dp))
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
+                        ),
+                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            "Ready to Buy",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth().padding(12.dp)
+                        )
                     }
                 }
             }

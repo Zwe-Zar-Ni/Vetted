@@ -21,4 +21,8 @@ class WishlistRepository(private val wishlistDao: WishlistDao) {
         val wishlist = wishlistDao.getWishlistDetails(id)
         return wishlist
     }
+
+    suspend fun checkWishlistsStatuses() {
+        wishlistDao.checkWishlistsStatuses()
+    }
 }

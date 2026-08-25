@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.sources.data.Source
+import com.vaddshah2626.vetted.shared.components.ConfirmationDialog
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import kotlinx.coroutines.launch
 
@@ -62,6 +63,9 @@ fun SourcesField(
     var sheetOpen by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
+
+    var dialogOpen by remember { mutableStateOf(false) }
+    var sourceIndexToDelete by remember { mutableIntStateOf(0) }
 
     fun addNewSource() {
         val source = Source(
@@ -175,7 +179,8 @@ fun SourcesField(
                         .size(21.dp)
                         .clickable(
                             onClick = {
-                                onDeleteSource(i)
+                                sourceIndexToDelete = i
+                                dialogOpen = true
                             },
                         )
                 )
@@ -258,6 +263,20 @@ fun SourcesField(
                     }
                 }
             }
+        }
+
+        if (dialogOpen) {
+            ConfirmationDialog(
+                title = "Are you sure?",
+                description = "Are you sure to delete this source?",
+                onDismiss = {
+                    sourceIndexToDelete = 0
+                    dialogOpen = false
+                },
+                onConfirm = {
+                    onDeleteSource(sourceIndexToDelete)
+                }
+            )
         }
     }
 }

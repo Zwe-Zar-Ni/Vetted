@@ -1,6 +1,5 @@
 package com.vaddshah2626.vetted.features.wishlist.di
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vaddshah2626.vetted.core.db.AppDatabase
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
@@ -16,5 +15,12 @@ val wishlistModule = module {
     singleOf(::WishlistRepository)
     viewModelOf(::WishlistViewModel)
     viewModelOf(::WishlistCreateViewModel)
-    viewModel { (wishlistId: Int) -> WishlistDetailsViewModel(get(), wishlistId , get()) }
+    viewModel { (wishlistId: Int) ->
+        WishlistDetailsViewModel(
+            get(),
+            wishlistId= wishlistId,
+            get(),
+            get()
+        )
+    }
 }

@@ -23,14 +23,20 @@ interface WishlistDao {
     @Query("SELECT * FROM wishlists WHERE ID=:id")
     fun getWishlistDetails(
         id: Int
-    ) : Flow<WishlistWithDetails>
+    ): Flow<WishlistWithDetails>
 
     @Query("SELECT * FROM categories")
     fun getAllCategories(): Flow<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWishlist(wishlist: Wishlist) : Long
+    suspend fun insertWishlist(wishlist: Wishlist): Long
 
     @Update
-    suspend fun updateWishlist(wishlist : Wishlist)
+    suspend fun updateWishlist(wishlist: Wishlist)
+
+    @Query("UPDATE wishlists SET status=:targetStatus WHERE status=:currentStatus AND created_at < :currentTime")
+    suspend fun checkWishlistsStatuses(
+        targetStatus: ItemStatus = ItemStatus.READY, currentStatus: ItemStatus =
+            ItemStatus.WISHLISTED, currentTime: Long = System.currentTimeMillis()
+    )
 }

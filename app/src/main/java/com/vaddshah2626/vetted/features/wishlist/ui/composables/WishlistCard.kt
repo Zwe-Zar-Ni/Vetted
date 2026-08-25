@@ -7,14 +7,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Photo
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -79,8 +83,26 @@ fun WishlistCard(
                         contentDescription = "Photo ${photo.id}",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(72.dp)
+                            .fillMaxSize()
                             .clip(RoundedCornerShape(6.dp))
+                            .align(Alignment.Center)
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .size(72.dp)
+                        .background(
+                            color = MaterialTheme.colorScheme.background,
+                            shape = MaterialTheme.shapes.small
+                        ),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Photo,
+                        contentDescription = "Empty Photo",
+                        tint= MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .size(32.dp)
                             .align(Alignment.Center)
                     )
                 }
