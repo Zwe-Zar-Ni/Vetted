@@ -67,6 +67,8 @@ data class Wishlist(
     @ColumnInfo(name = "purchase_note")
     val purchaseNote: String? = null,
 
+    // TODO : purchased source and variation?
+
     // --- End-of-Life / Retirement Fields ---
     @ColumnInfo(name = "retired_at")
     val retiredAt: Long? = null,
