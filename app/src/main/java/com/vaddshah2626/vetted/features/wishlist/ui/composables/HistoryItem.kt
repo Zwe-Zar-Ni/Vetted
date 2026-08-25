@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -40,9 +39,8 @@ import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
 import java.io.File
 
 @Composable
-fun WishlistCard(
-    wishlist: WishlistWithDetails,
-    onWishlistClick: (wishlistId: Int) -> Unit
+fun HistoryItem(
+    wishlist: WishlistWithDetails
 ) {
     val context = LocalContext.current
 
@@ -51,7 +49,7 @@ fun WishlistCard(
             .fillMaxWidth()
             .clickable(
                 onClick = {
-                    onWishlistClick(wishlist.item.id)
+
                 }
             ),
         colors = CardDefaults.cardColors(
@@ -100,7 +98,7 @@ fun WishlistCard(
                     Icon(
                         imageVector = Icons.Default.Photo,
                         contentDescription = "Empty Photo",
-                        tint= MaterialTheme.colorScheme.onBackground,
+                        tint = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .size(32.dp)
                             .align(Alignment.Center)
@@ -112,6 +110,12 @@ fun WishlistCard(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(wishlist.item.name, style = MaterialTheme.typography.titleLarge)
+                if (wishlist.item.actualPricePaid != null) {
+                    Text(
+                        wishlist.item.actualPricePaid.toKString(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
                 Text(
                     "♥\uFE0E ${wishlist.item.desireRating} / 10",
                     color = MaterialTheme.colorScheme.onSurface,
@@ -124,19 +128,6 @@ fun WishlistCard(
                         )
                         .padding(8.dp, 4.dp)
                 )
-                Row {
-                    Text(
-                        wishlist.item.minTargetPrice.toKString(),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                    if (wishlist.item.maxTargetPrice != null) {
-                        Text(" - ", style = MaterialTheme.typography.bodySmall)
-                        Text(
-                            wishlist.item.maxTargetPrice.toKString(),
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
-                }
             }
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -146,22 +137,28 @@ fun WishlistCard(
                 Spacer(Modifier.height(2.dp))
                 Text(
                     text = when (wishlist.item.status) {
-                        ItemStatus.WISHLISTED -> "READY IN"
-                        ItemStatus.READY -> "READY TO BUY"
-                        else -> ""
+                        ItemStatus.PURCHASED -> "Purchased At"
+                        else -> "Retired At"
                     },
-                    color = when (wishlist.item.status) {
-                        ItemStatus.WISHLISTED -> MaterialTheme.colorScheme.error
-                        ItemStatus.READY -> MaterialTheme.colorScheme.primary
-                        else -> MaterialTheme.colorScheme.onSurface
+                    color =  when (wishlist.item.status) {
+                        ItemStatus.PURCHASED -> MaterialTheme.colorScheme.primary
+                        else -> MaterialTheme.colorScheme.error
                     },
                     style = MaterialTheme.typography.bodyMedium,
                 )
-                if (wishlist.item.status == ItemStatus.WISHLISTED) {
+                if (wishlist.item.status != ItemStatus.WISHLISTED || wishlist.item.status != ItemStatus.READY) {
                     Text(
-                        wishlist.item.coolOffUntil.toFormattedDate(),
+                        text = when (wishlist.item.status) {
+                            ItemStatus.PURCHASED -> wishlist.item.purchasedAt?.toFormattedDate()
+                                ?: ""
+
+                            else -> wishlist.item.retiredAt?.toFormattedDate() ?: ""
+                        },
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error
+                        color = when (wishlist.item.status) {
+                            ItemStatus.PURCHASED -> MaterialTheme.colorScheme.primary
+                            else -> MaterialTheme.colorScheme.error
+                        }
                     )
                 }
             }

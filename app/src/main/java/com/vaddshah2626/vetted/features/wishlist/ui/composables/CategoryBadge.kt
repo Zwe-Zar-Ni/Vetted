@@ -62,12 +62,12 @@ fun CategoryBadge(
             ?: Modifier
                 .border(
                     width = 1.dp,
-                    color = MaterialTheme.colorScheme.onTertiary,
+                    color = MaterialTheme.colorScheme.onSecondary,
                     shape = rowShape
                 )
                 .clip(rowShape)
                 .background(
-                    color = MaterialTheme.colorScheme.tertiary,
+                    color = MaterialTheme.colorScheme.secondary,
                     shape = rowShape
                 )
                 .padding(vertical = 4.dp, horizontal = 8.dp),

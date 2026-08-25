@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.vaddshah2626.vetted.features.categories.ui.screens.CategoriesScreen
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
+import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistCreateScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistDetailsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
@@ -52,6 +53,9 @@ fun AppNavigation() {
                             navController.navigate(NavRoutes.WishlistDetailsRoute(wishlistId))
                         }
                     )
+                }
+                composable<NavRoutes.HistoryRoute> {
+                    HistoryScreen()
                 }
             }
 
