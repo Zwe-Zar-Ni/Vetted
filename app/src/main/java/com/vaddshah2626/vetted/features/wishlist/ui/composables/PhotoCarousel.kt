@@ -1,5 +1,8 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.composables
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -7,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,19 +44,42 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.vaddshah2626.vetted.features.photos.data.Photo
+import com.vaddshah2626.vetted.features.wishlist.utils.saveImageToInternalStorage
 import com.vaddshah2626.vetted.shared.components.ConfirmationDialog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PhotoCarousel(
-    photos: List<Photo>
+    photos: List<Photo>,
+    onDeletePhoto: (index: Int) -> Unit,
+    onAddPhoto: (uri: String) -> Unit
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
     val carouselState = rememberCarouselState(itemCount = { photos.size + 1 })
 
     var dialogOpen by remember { mutableStateOf(false) }
     var photoIndexToDelete by remember { mutableIntStateOf(0) }
+
+    // Register Photo Picker Launcher
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        scope.launch(Dispatchers.IO) {
+            val savedPath = saveImageToInternalStorage(context, uri)
+            if (savedPath != null) {
+                withContext(Dispatchers.Main) {
+                    onAddPhoto(savedPath)
+                }
+            }
+        }
+    }
 
     HorizontalMultiBrowseCarousel(
         state = carouselState,
@@ -75,12 +103,15 @@ fun PhotoCarousel(
                     tint = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
+                        .offset((-4).dp, 4.dp)
                         .zIndex(1f)
+                        .size(24.dp)
                         .background(
                             color = MaterialTheme.colorScheme.background,
                             shape = MaterialTheme.shapes.extraSmall
                         )
-                        .padding(4.dp).clickable(
+                        .padding(4.dp)
+                        .clickable(
                             onClick = {
                                 photoIndexToDelete = index
                                 dialogOpen = true
@@ -114,7 +145,11 @@ fun PhotoCarousel(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = {},
+                        onClick = {
+                            photoPickerLauncher.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        },
                         shape = CircleShape,
                         modifier = Modifier.size(28.dp)
                     ) {
@@ -128,7 +163,7 @@ fun PhotoCarousel(
         }
     }
 
-    if(dialogOpen) {
+    if (dialogOpen) {
         ConfirmationDialog(
             title = "Are you sure?",
             description = "Are you sure to delete this photo?",
@@ -137,7 +172,7 @@ fun PhotoCarousel(
                 dialogOpen = false
             },
             onConfirm = {
-
+                onDeletePhoto(photoIndexToDelete)
             }
         )
     }

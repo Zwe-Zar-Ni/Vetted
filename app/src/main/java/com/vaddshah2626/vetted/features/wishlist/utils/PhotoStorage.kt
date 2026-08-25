@@ -19,3 +19,12 @@ fun saveImageToInternalStorage(context: Context, uri: Uri): String? {
         null
     }
 }
+
+fun deleteImageFromInternalStorage(path : String) : Boolean {
+    val file = File(path)
+    if (file.exists()) {
+        val deleted = file.delete()
+        return deleted
+    }
+    return false
+}

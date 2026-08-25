@@ -22,8 +22,4 @@ class PhotoRepository(private val photoDao: PhotoDao) {
         photoDao.deletePhoto(photo)
     }
 
-    suspend fun deletePhotoById(photoId: Int) {
-        photoDao.deletePhotoById(photoId)
-    }
-
 }

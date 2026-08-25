@@ -66,18 +66,20 @@ fun VariationNote(
             verticalAlignment = Alignment.CenterVertically
         ) {
             for (n in notes) {
-                item {
-                    Card(
-                        shape = MaterialTheme.shapes.small,
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainer
-                        )
-                    ) {
-                        Text(
-                            n,
-                            modifier = Modifier.padding(12.dp, 6.dp),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+                if (n.trim().isNotEmpty()) {
+                    item {
+                        Card(
+                            shape = MaterialTheme.shapes.small,
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainer
+                            )
+                        ) {
+                            Text(
+                                n,
+                                modifier = Modifier.padding(12.dp, 6.dp),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
                     }
                 }
             }
