@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,6 +41,7 @@ import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
@@ -116,17 +116,18 @@ fun WishlistDetailsScreen(
             )
         },
         bottomBar = {
-            Button(
-                onClick = { },
-                enabled = item?.status == ItemStatus.READY,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    "Buy Item",
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.bodyMedium
+            if (item?.status == ItemStatus.READY) {
+                BuyItemAction(
+                    onBuy = { actualPricePaid, purchaseNote ->
+                        scope.launch {
+                            viewModel.purchaseWishlist(
+                                item.copy(
+                                    actualPricePaid = actualPricePaid,
+                                    purchaseNote = purchaseNote
+                                )
+                            )
+                        }
+                    }
                 )
             }
         }
@@ -252,7 +253,9 @@ fun WishlistDetailsScreen(
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth().padding(12.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp)
                         )
                     }
                 }

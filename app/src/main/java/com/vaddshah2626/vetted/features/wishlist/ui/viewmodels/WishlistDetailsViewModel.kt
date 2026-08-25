@@ -6,6 +6,7 @@ import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.photos.data.PhotoRepository
 import com.vaddshah2626.vetted.features.sources.data.Source
 import com.vaddshah2626.vetted.features.sources.data.SourceRepository
+import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
@@ -33,6 +34,15 @@ class WishlistDetailsViewModel(
 
     suspend fun updateWishlist(wishlist: Wishlist) {
         repository.updateWishlist(wishlist)
+    }
+
+    suspend fun purchaseWishlist(wishlist : Wishlist) {
+        repository.updateWishlist(
+            wishlist.copy(
+                status = ItemStatus.PURCHASED,
+                purchasedAt = System.currentTimeMillis()
+            )
+        )
     }
 
     suspend fun addSource(source: Source) {

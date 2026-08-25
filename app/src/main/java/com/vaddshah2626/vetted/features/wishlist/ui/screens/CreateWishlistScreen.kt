@@ -209,8 +209,6 @@ fun WishlistCreateScreen(
                     value = state.variationsNote,
                     onValueChange = viewModel::onVariationsNotesChanged,
                     label = { Text("Item Variations") },
-                    isError = state.titleError != null,
-                    supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -226,8 +224,6 @@ fun WishlistCreateScreen(
                     value = state.prePurchaseNote,
                     onValueChange = viewModel::onPrePurchaseNoteChanged,
                     label = { Text("Pre Purchase Note") },
-                    isError = state.titleError != null,
-                    supportingText = state.titleError?.let { { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
