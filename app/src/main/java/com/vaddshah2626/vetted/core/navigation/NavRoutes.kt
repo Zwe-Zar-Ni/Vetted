@@ -26,4 +26,7 @@ sealed class NavRoutes {
 
     @Serializable
     data class WishlistDetailsRoute(val wishlistId : Int) : NavRoutes()
+
+    @Serializable
+    object HistoryRoute : NavRoutes()
 }

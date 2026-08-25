@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 class WishlistRepository(private val wishlistDao: WishlistDao) {
     val allWishlists: Flow<List<WishlistWithDetails>> = wishlistDao.getPendingWishlist()
 
+    val history: Flow<List<WishlistWithDetails>> = wishlistDao.getPurchasedWishlist()
+
     val categories: Flow<List<Category>> = wishlistDao.getAllCategories()
 
     suspend fun addWishlist(wishlist: Wishlist) : Long {

@@ -20,6 +20,13 @@ interface WishlistDao {
     ): Flow<List<WishlistWithDetails>>
 
     @Transaction
+    @Query("SELECT * FROM wishlists WHERE status NOT In (:status1, :status2) ORDER BY purchased_at DESC")
+    fun getPurchasedWishlist(
+        status1: ItemStatus = ItemStatus.WISHLISTED,
+        status2: ItemStatus = ItemStatus.READY
+    ): Flow<List<WishlistWithDetails>>
+
+    @Transaction
     @Query("SELECT * FROM wishlists WHERE ID=:id")
     fun getWishlistDetails(
         id: Int
