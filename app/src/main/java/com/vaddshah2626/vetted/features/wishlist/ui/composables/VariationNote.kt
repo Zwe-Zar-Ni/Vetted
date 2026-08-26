@@ -42,6 +42,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun VariationNote(
     note: String?,
+    isActionDisabled: Boolean = false,
     onEditNote: (note: String) -> Unit
 ) {
     val notes = note?.split(",") ?: emptyList()
@@ -83,19 +84,21 @@ fun VariationNote(
                     }
                 }
             }
-            item {
-                Spacer(Modifier.width(4.dp))
-                IconButton(
-                    onClick = {
-                        sheetOpen = true
-                    },
-                    modifier = Modifier.size(21.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = "Edit",
-                        tint = TextTheme.colors.textTertiary
-                    )
+            if (!isActionDisabled) {
+                item {
+                    Spacer(Modifier.width(4.dp))
+                    IconButton(
+                        onClick = {
+                            sheetOpen = true
+                        },
+                        modifier = Modifier.size(21.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit",
+                            tint = TextTheme.colors.textTertiary
+                        )
+                    }
                 }
             }
         }

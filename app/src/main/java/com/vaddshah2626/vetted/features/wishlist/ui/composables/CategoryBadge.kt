@@ -78,13 +78,13 @@ fun CategoryBadge(
             imageVector = vectorIcon,
             contentDescription = category.name,
             tint = iconTint,
-            modifier = Modifier.size(12.dp)
+            modifier = Modifier.size(14.dp)
         )
         if(withText) {
             Text(
                 text = category.name,
                 color = textColor,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
