@@ -32,9 +32,6 @@ data class Source(
 
     val price: Double? = null,
 
-    @ColumnInfo(name = "is_primary") // ? Is bought from here
-    val isPrimary: Boolean = false,
-
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()
 )

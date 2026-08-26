@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VariationNote(
+    purchasedVariation: String? = null,
     note: String?,
     isActionDisabled: Boolean = false,
     onEditNote: (note: String) -> Unit
@@ -67,18 +68,21 @@ fun VariationNote(
             verticalAlignment = Alignment.CenterVertically
         ) {
             for (n in notes) {
+                val isPurchasedVariation =
+                    n.trim().equals(purchasedVariation?.trim(), ignoreCase = true)
+
                 if (n.trim().isNotEmpty()) {
                     item {
                         Card(
                             shape = MaterialTheme.shapes.small,
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainer
+                                containerColor = if (isPurchasedVariation) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainer,
                             )
                         ) {
                             Text(
                                 n,
                                 modifier = Modifier.padding(12.dp, 6.dp),
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = if (isPurchasedVariation) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
                             )
                         }
                     }

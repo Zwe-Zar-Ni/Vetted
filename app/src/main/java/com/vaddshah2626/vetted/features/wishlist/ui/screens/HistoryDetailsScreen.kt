@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.RetireItem
@@ -102,22 +101,6 @@ fun HistoryDetailsScreen(
                 )
             )
         },
-        bottomBar = {
-            if (item?.status == ItemStatus.READY) {
-                BuyItemAction(
-                    onBuy = { actualPricePaid, purchaseNote ->
-                        scope.launch {
-                            viewModel.retireWishlist(
-                                item.copy(
-                                    actualPricePaid = actualPricePaid,
-                                    purchaseNote = purchaseNote
-                                )
-                            )
-                        }
-                    }
-                )
-            }
-        }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
@@ -271,6 +254,7 @@ fun HistoryDetailsScreen(
                     Spacer(Modifier.height(20.dp))
                     VariationNote(
                         note = item.variationsNote,
+                        purchasedVariation = item.purchasedVariation,
                         isActionDisabled = true,
                         onEditNote = { _ -> })
                 }
@@ -285,6 +269,7 @@ fun HistoryDetailsScreen(
                 )
                 Spacer(Modifier.height(20.dp))
                 SourcesField(
+                    purchasedSourceId = item?.purchasedSourceId,
                     sources = sources ?: emptyList(),
                     isActionsDisabled = true,
                     onAddSource = {},

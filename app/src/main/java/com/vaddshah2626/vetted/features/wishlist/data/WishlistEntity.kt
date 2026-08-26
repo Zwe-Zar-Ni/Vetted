@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.vaddshah2626.vetted.features.categories.data.Category
+import com.vaddshah2626.vetted.features.sources.data.Source
 import kotlin.time.Clock
 
 
@@ -17,6 +18,12 @@ import kotlin.time.Clock
             parentColumns = ["id"],
             childColumns = ["category_id"],
             onDelete = ForeignKey.RESTRICT // Prevent deleting a category if items exist inside it
+        ),
+        ForeignKey(
+            entity = Source::class,
+            parentColumns = ["id"],
+            childColumns = ["purchased_source_id"],
+            onDelete = ForeignKey.RESTRICT
         )
     ],
     indices = [Index(value = ["category_id"])]
@@ -67,7 +74,12 @@ data class Wishlist(
     @ColumnInfo(name = "purchase_note")
     val purchaseNote: String? = null,
 
-    // TODO : purchased source and variation?
+    @ColumnInfo(name = "purchased_source_id")
+    val purchasedSourceId: Int? = null,
+
+    @ColumnInfo(name = "purchased_variation")
+    val purchasedVariation: String? = null,
+
 
     // --- End-of-Life / Retirement Fields ---
     @ColumnInfo(name = "retired_at")

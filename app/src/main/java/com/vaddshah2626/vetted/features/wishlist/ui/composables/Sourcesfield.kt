@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Link
@@ -48,6 +49,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SourcesField(
+    purchasedSourceId: Int? = null,
     sources: List<Source>,
     isActionsDisabled: Boolean = false,
     onAddSource: (source: Source) -> Unit,
@@ -133,7 +135,7 @@ fun SourcesField(
                 Icon(
                     imageVector = Icons.Default.Link,
                     contentDescription = "Source",
-                    tint = TextTheme.colors.textSecondary
+                    tint = if (src.id == purchasedSourceId) MaterialTheme.colorScheme.primary else TextTheme.colors.textSecondary
                 )
                 Column(
                     modifier = Modifier
@@ -145,7 +147,7 @@ fun SourcesField(
                         src.title,
                         modifier = Modifier.weight(1f),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextTheme.colors.textSecondary
+                        color = if (src.id == purchasedSourceId) MaterialTheme.colorScheme.primary else TextTheme.colors.textSecondary
                     )
                     if (src.price != null) {
                         Spacer(Modifier.height(2.dp))
@@ -153,9 +155,17 @@ fun SourcesField(
                             src.price.toKString(),
                             modifier = Modifier.weight(1f),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = TextTheme.colors.textPrimary
+                            color = if (src.id == purchasedSourceId) MaterialTheme.colorScheme.primary else TextTheme.colors.textPrimary
                         )
                     }
+                }
+                if (src.id == purchasedSourceId) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "Actual Source",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(21.dp)
+                    )
                 }
                 if (!isActionsDisabled) {
                     Icon(
@@ -264,7 +274,7 @@ fun SourcesField(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(if (isEditing) "Edit" else "Add")
+                        Text(if (isEditing) "Update" else "Add")
                     }
                 }
             }

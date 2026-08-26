@@ -13,7 +13,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.vaddshah2626.vetted.features.categories.ui.screens.CategoriesScreen
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryDetailsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryScreen
@@ -68,21 +67,13 @@ fun AppNavigation() {
             composable<NavRoutes.WelcomeRoute> {
                 WelcomeScreen(
                     onContinue = {
-                        navController.navigate(NavRoutes.CategoriesListRoute)
-                    }
-                )
-            }
-
-            // ? Other Routes
-            composable<NavRoutes.CategoriesListRoute> {
-                CategoriesScreen(
-                    onContinue = {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
                     }
                 )
             }
+
             composable<NavRoutes.WishlistCreateRoute> {
                 WishlistCreateScreen(
                     onNavigateBack = {

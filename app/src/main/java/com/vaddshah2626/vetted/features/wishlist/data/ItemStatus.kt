@@ -8,5 +8,6 @@ enum class ItemStatus {
     BROKEN,
     DAMAGED,
     LOST,
-    RETIRED
+    RETIRED,
+    CANCELED
 }
