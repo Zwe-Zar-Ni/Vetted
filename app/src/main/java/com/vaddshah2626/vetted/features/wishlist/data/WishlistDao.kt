@@ -41,9 +41,10 @@ interface WishlistDao {
     @Update
     suspend fun updateWishlist(wishlist: Wishlist)
 
-    @Query("UPDATE wishlists SET status=:targetStatus WHERE status=:currentStatus AND created_at < :currentTime")
+    @Query("UPDATE wishlists SET status=:targetStatus WHERE status=:currentStatus AND cool_off_until < :currentTime")
     suspend fun checkWishlistsStatuses(
-        targetStatus: ItemStatus = ItemStatus.READY, currentStatus: ItemStatus =
-            ItemStatus.WISHLISTED, currentTime: Long = System.currentTimeMillis()
+        targetStatus: ItemStatus = ItemStatus.READY,
+        currentStatus: ItemStatus = ItemStatus.WISHLISTED,
+        currentTime: Long = System.currentTimeMillis()
     )
 }

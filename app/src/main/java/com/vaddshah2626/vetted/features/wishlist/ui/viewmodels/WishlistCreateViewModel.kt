@@ -12,6 +12,7 @@ import com.vaddshah2626.vetted.features.photos.data.PhotoRepository
 import com.vaddshah2626.vetted.features.photos.data.PhotoType
 import com.vaddshah2626.vetted.features.sources.data.Source
 import com.vaddshah2626.vetted.features.sources.data.SourceRepository
+import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.utils.saveImageToInternalStorage
@@ -107,10 +108,10 @@ class WishlistCreateViewModel(
         )
     }
 
-    fun onSourceEdit(index : Int , source : Source) {
+    fun onSourceEdit(index: Int, source: Source) {
         formState = formState.copy(
             sources = formState.sources.mapIndexed { i, src ->
-                if(i == index) source else src
+                if (i == index) source else src
             }
         )
     }
@@ -139,6 +140,7 @@ class WishlistCreateViewModel(
 
             val newItem = Wishlist(
                 name = formState.title.trim(),
+                status = ItemStatus.WISHLISTED,
                 categoryId = formState.categoryId!!,
                 desireRating = formState.desireRating,
                 minTargetPrice = formState.minTargetPrice.toDoubleOrNull() ?: 0.0,
@@ -159,7 +161,7 @@ class WishlistCreateViewModel(
                 )
             }
 
-            formState.sources.forEach {source ->
+            formState.sources.forEach { source ->
                 sourceRepository.insertSource(
                     source.copy(
                         itemId = itemId.toInt()
