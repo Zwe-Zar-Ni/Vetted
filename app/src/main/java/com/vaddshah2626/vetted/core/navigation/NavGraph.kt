@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.vaddshah2626.vetted.features.categories.ui.screens.CategoriesScreen
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
+import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryDetailsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistCreateScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistDetailsScreen
@@ -49,13 +50,17 @@ fun AppNavigation() {
                         onCreateClick = {
                             navController.navigate(NavRoutes.WishlistCreateRoute)
                         },
-                        onWishlistClick = {wishlistId ->
+                        onWishlistClick = { wishlistId ->
                             navController.navigate(NavRoutes.WishlistDetailsRoute(wishlistId))
                         }
                     )
                 }
                 composable<NavRoutes.HistoryRoute> {
-                    HistoryScreen()
+                    HistoryScreen(
+                        onItemClick = { itemId ->
+                            navController.navigate(NavRoutes.HistoryDetailsRoute(itemId))
+                        }
+                    )
                 }
             }
 
@@ -93,6 +98,17 @@ fun AppNavigation() {
                     wishlistId = parameters.wishlistId,
                     onNavigateBack = {
                         navController.navigate(NavRoutes.TabRoutes) {
+                            popUpTo(NavRoutes.TabRoutes) { inclusive = true }
+                        }
+                    }
+                )
+            }
+            composable<NavRoutes.HistoryDetailsRoute> { backStackEntry ->
+                val parameters = backStackEntry.toRoute<NavRoutes.HistoryDetailsRoute>()
+                HistoryDetailsScreen(
+                    itemId = parameters.itemId,
+                    onNavigateBack = {
+                        navController.navigate(NavRoutes.HistoryRoute) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
                     }

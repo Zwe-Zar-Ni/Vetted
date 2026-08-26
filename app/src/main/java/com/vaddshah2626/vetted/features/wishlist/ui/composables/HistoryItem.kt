@@ -40,7 +40,8 @@ import java.io.File
 
 @Composable
 fun HistoryItem(
-    wishlist: WishlistWithDetails
+    wishlist: WishlistWithDetails,
+    onItemClick: (itemId : Int) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -49,7 +50,7 @@ fun HistoryItem(
             .fillMaxWidth()
             .clickable(
                 onClick = {
-
+                    onItemClick(wishlist.item.id)
                 }
             ),
         colors = CardDefaults.cardColors(

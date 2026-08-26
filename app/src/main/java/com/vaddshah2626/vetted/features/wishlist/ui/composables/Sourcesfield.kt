@@ -49,6 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SourcesField(
     sources: List<Source>,
+    isActionsDisabled: Boolean = false,
     onAddSource: (source: Source) -> Unit,
     onEditSource: (index: Int, source: Source) -> Unit,
     onDeleteSource: (index: Int) -> Unit
@@ -106,16 +107,18 @@ fun SourcesField(
                 style = MaterialTheme.typography.bodyLarge,
                 color = TextTheme.colors.textTertiary
             )
-            IconButton(
-                onClick = {
-                    sheetOpen = true
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add More Source",
-                    tint = TextTheme.colors.textSecondary
-                )
+            if (!isActionsDisabled) {
+                IconButton(
+                    onClick = {
+                        sheetOpen = true
+                    },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add More Source",
+                        tint = TextTheme.colors.textSecondary
+                    )
+                }
             }
         }
         Spacer(Modifier.height(8.dp))
@@ -154,36 +157,38 @@ fun SourcesField(
                         )
                     }
                 }
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit",
-                    tint = TextTheme.colors.textTertiary,
-                    modifier = Modifier
-                        .size(21.dp)
-                        .clickable(
-                            onClick = {
-                                title = src.title
-                                url = src.url ?: ""
-                                price = if (src.price != null) src.price.toString() else ""
-                                isEditing = true
-                                editIndex = i
-                                sheetOpen = true
-                            },
-                        )
-                )
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
-                    tint = TextTheme.colors.textTertiary,
-                    modifier = Modifier
-                        .size(21.dp)
-                        .clickable(
-                            onClick = {
-                                sourceIndexToDelete = i
-                                dialogOpen = true
-                            },
-                        )
-                )
+                if (!isActionsDisabled) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit",
+                        tint = TextTheme.colors.textTertiary,
+                        modifier = Modifier
+                            .size(21.dp)
+                            .clickable(
+                                onClick = {
+                                    title = src.title
+                                    url = src.url ?: ""
+                                    price = if (src.price != null) src.price.toString() else ""
+                                    isEditing = true
+                                    editIndex = i
+                                    sheetOpen = true
+                                },
+                            )
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete",
+                        tint = TextTheme.colors.textTertiary,
+                        modifier = Modifier
+                            .size(21.dp)
+                            .clickable(
+                                onClick = {
+                                    sourceIndexToDelete = i
+                                    dialogOpen = true
+                                },
+                            )
+                    )
+                }
             }
             HorizontalDivider(
                 thickness = 1.dp,

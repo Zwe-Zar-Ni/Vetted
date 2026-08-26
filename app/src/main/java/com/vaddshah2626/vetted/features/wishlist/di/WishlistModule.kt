@@ -2,6 +2,7 @@ package com.vaddshah2626.vetted.features.wishlist.di
 
 import com.vaddshah2626.vetted.core.db.AppDatabase
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
+import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryDetailsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
@@ -19,10 +20,17 @@ val wishlistModule = module {
     viewModel { (wishlistId: Int) ->
         WishlistDetailsViewModel(
             get(),
-            wishlistId= wishlistId,
+            wishlistId = wishlistId,
             get(),
             get()
         )
     }
     viewModelOf(::HistoryViewModel)
+    viewModel { (itemId: Int) ->
+        HistoryDetailsViewModel(
+            repository = get(),
+            itemId = itemId,
+            photoRepository = get()
+        )
+    }
 }

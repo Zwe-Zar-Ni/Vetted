@@ -29,4 +29,7 @@ sealed class NavRoutes {
 
     @Serializable
     object HistoryRoute : NavRoutes()
+
+    @Serializable
+    data class HistoryDetailsRoute(val itemId : Int) : NavRoutes()
 }
