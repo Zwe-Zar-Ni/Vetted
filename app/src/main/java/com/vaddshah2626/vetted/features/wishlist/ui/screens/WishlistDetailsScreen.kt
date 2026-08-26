@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,7 +34,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
@@ -95,15 +93,6 @@ fun WishlistDetailsScreen(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                                 contentDescription = "Back",
-                            )
-                        }
-                        IconButton(
-                            onClick = onNavigateBack,
-                            modifier = Modifier.align(Alignment.CenterEnd)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Edit,
-                                contentDescription = "Edit",
                             )
                         }
                     }
@@ -239,25 +228,6 @@ fun WishlistDetailsScreen(
                             }
                         }
                     }
-                } else if (item?.status == ItemStatus.READY) {
-                    Spacer(Modifier.height(20.dp))
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        ),
-                        shape = MaterialTheme.shapes.small,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            "Ready to Buy",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp)
-                        )
-                    }
                 }
             }
 
@@ -302,7 +272,7 @@ fun WishlistDetailsScreen(
                                         color = TextTheme.colors.textTertiary
                                     )
                                     Text(
-                                        item.minTargetPrice.toKString(),
+                                        item.maxTargetPrice.toKString(),
                                         style = MaterialTheme.typography.bodyLarge
                                     )
                                 }

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -40,6 +39,7 @@ import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.RetireItem
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.TimelineHistory
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
@@ -91,15 +91,6 @@ fun HistoryDetailsScreen(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                                 contentDescription = "Back",
-                            )
-                        }
-                        IconButton(
-                            onClick = onNavigateBack,
-                            modifier = Modifier.align(Alignment.CenterEnd)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Edit,
-                                contentDescription = "Edit",
                             )
                         }
                     }
@@ -300,6 +291,23 @@ fun HistoryDetailsScreen(
                     onEditSource = { _, _ -> },
                     onDeleteSource = {}
                 )
+            }
+
+            item {
+                if (item != null && item.status == ItemStatus.PURCHASED) {
+                    RetireItem(
+                        onRetire = { status, postMortemNote ->
+                            scope.launch {
+                                viewModel.retireWishlist(
+                                    item.copy(
+                                        status = status,
+                                        postMortemNote = postMortemNote
+                                    )
+                                )
+                            }
+                        }
+                    )
+                }
             }
 
         }
