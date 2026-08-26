@@ -1,7 +1,7 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,12 +14,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
@@ -83,17 +84,38 @@ fun WishlistDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(4.dp, 0.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(
-                            onClick = onNavigateBack,
-                            modifier = Modifier.align(Alignment.CenterStart)
-                        ) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
-                                contentDescription = "Back",
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
+                            contentDescription = "Back",
+                            modifier = Modifier.clickable(
+                                onClick = onNavigateBack
                             )
+                        )
+                        if (item != null) {
+                            Button(
+                                onClick = {
+                                    scope.launch {
+                                        viewModel.updateWishlist(
+                                            item.copy(
+                                                status = ItemStatus.READY
+                                            )
+                                        )
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.background,
+                                    contentColor = MaterialTheme.colorScheme.onBackground,
+                                )
+                            ) {
+                                Text("Cancel")
+                            }
                         }
                     }
                 },
@@ -107,14 +129,11 @@ fun WishlistDetailsScreen(
         bottomBar = {
             if (item?.status == ItemStatus.READY) {
                 BuyItemAction(
-                    onBuy = { actualPricePaid, purchaseNote ->
+                    wishlist = item,
+                    sources = sources ?: emptyList(),
+                    onBuy = { wishlist ->
                         scope.launch {
-                            viewModel.purchaseWishlist(
-                                item.copy(
-                                    actualPricePaid = actualPricePaid,
-                                    purchaseNote = purchaseNote
-                                )
-                            )
+                            viewModel.purchaseWishlist(wishlist)
                         }
                     }
                 )
@@ -286,7 +305,9 @@ fun WishlistDetailsScreen(
             item {
                 if (item != null) {
                     Spacer(Modifier.height(20.dp))
-                    VariationNote(item.variationsNote, onEditNote = { note ->
+                    VariationNote(
+                        note = item.variationsNote,
+                        onEditNote = { note ->
                         scope.launch {
                             viewModel.updateWishlist(
                                 item.copy(
@@ -320,13 +341,10 @@ fun WishlistDetailsScreen(
                         val originalSource = sources?.get(index) ?: return@SourcesField
                         scope.launch {
                             viewModel.updateSource(
-                                src.copy(
+                                originalSource.copy(
                                     title = src.title,
                                     url = src.url,
                                     price = src.price,
-                                    id = originalSource.id,
-                                    itemId = originalSource.itemId,
-                                    isPrimary = originalSource.isPrimary
                                 )
                             )
                         }
