@@ -47,4 +47,43 @@ interface WishlistDao {
         currentStatus: ItemStatus = ItemStatus.WISHLISTED,
         currentTime: Long = System.currentTimeMillis()
     )
+
+    // ? Analytics queries
+
+    @Query(
+        """
+    SELECT AVG((purchased_at - cool_off_until) / 86400000.0)
+    FROM wishlists
+    WHERE status = 'PURCHASED'
+      AND purchased_at IS NOT NULL
+      AND cool_off_until IS NOT NULL
+      AND purchased_at >= cool_off_until
+    """
+    )
+    fun getAverageDaysInReady(): Flow<Double?>
+
+    @Query(
+        """
+    SELECT COALESCE(SUM(COALESCE(max_target_price, min_target_price, 0.0)), 0.0)
+    FROM wishlists
+    WHERE status = 'READY'
+    """
+    )
+    fun getWishlistPipelineValue(): Flow<Double>
+
+    @Query(
+        """
+    SELECT 
+        CASE 
+            WHEN COUNT(CASE WHEN status IN ('PURCHASED', 'USED_UP', 'BROKEN', 'DAMAGED', 'LOST', 'RETIRED', 'CANCELED') THEN 1 END) = 0 
+            THEN 0.0
+            ELSE (
+                CAST(COUNT(CASE WHEN status IN ('PURCHASED', 'USED_UP', 'BROKEN', 'DAMAGED', 'LOST', 'RETIRED') THEN 1 END) AS REAL) * 100.0
+                / COUNT(CASE WHEN status IN ('PURCHASED', 'USED_UP', 'BROKEN', 'DAMAGED', 'LOST', 'RETIRED', 'CANCELED') THEN 1 END)
+            )
+        END
+    FROM wishlists
+    """
+    )
+    fun getWishlistConversionRate(): Flow<Double>
 }

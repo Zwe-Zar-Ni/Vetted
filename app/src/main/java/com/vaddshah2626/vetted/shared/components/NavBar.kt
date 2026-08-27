@@ -34,7 +34,7 @@ data class NavItem(
 private val navItems = listOf(
     NavItem(title = "Wishlist", icon = Icons.Default.Checklist, route = NavRoutes.WishlistRoute),
     NavItem(title = "History", icon = Icons.Default.History, route = NavRoutes.HistoryRoute),
-    NavItem(title = "Analytics", icon = Icons.Default.BarChart, route = NavRoutes.WelcomeRoute),
+    NavItem(title = "Analytics", icon = Icons.Default.BarChart, route = NavRoutes.AnalyticsRoute),
     NavItem(title = "Profile", icon = Icons.Default.Person, route = NavRoutes.WelcomeRoute),
 )
 

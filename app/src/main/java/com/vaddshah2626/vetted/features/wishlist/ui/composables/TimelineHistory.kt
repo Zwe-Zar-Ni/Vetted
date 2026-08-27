@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrokenImage
-import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material3.Card
@@ -32,7 +31,13 @@ import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 
 @Composable
-fun TimelineItem(label: String, body: String, icon: ImageVector, isLastItem: Boolean = false) {
+fun TimelineItem(
+    label: String,
+    body: String,
+    note: String? = null,
+    icon: ImageVector,
+    isLastItem: Boolean = false
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -80,6 +85,13 @@ fun TimelineItem(label: String, body: String, icon: ImageVector, isLastItem: Boo
                     style = MaterialTheme.typography.bodyLarge,
                     color = TextTheme.colors.textPrimary
                 )
+                if (note != null) {
+                    Text(
+                        note,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TextTheme.colors.textSecondary
+                    )
+                }
             }
         }
     }
@@ -96,12 +108,14 @@ fun TimelineHistory(
         TimelineItem(
             label = "Wishlist At",
             body = item.createdAt.toFormattedDate(),
+            note = item.prePurchaseNote,
             icon = Icons.Default.Check
         )
         if (item.purchasedAt != null) {
             TimelineItem(
                 label = "Purchased At",
                 body = item.purchasedAt.toFormattedDate(),
+                note = item.purchaseNote,
                 icon = Icons.Default.ShoppingBag,
                 isLastItem = item.retiredAt == null
             )
@@ -110,6 +124,7 @@ fun TimelineHistory(
             TimelineItem(
                 label = "Retired At",
                 body = item.retiredAt.toFormattedDate(),
+                note = item.postMortemNote,
                 icon = Icons.Default.BrokenImage,
                 isLastItem = true
             )
