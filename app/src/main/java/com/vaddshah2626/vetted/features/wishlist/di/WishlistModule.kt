@@ -1,7 +1,9 @@
 package com.vaddshah2626.vetted.features.wishlist.di
 
 import com.vaddshah2626.vetted.core.db.AppDatabase
+import com.vaddshah2626.vetted.features.wishlist.data.AnalyticsRepository
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
+import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.AnalyticsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryDetailsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
@@ -33,4 +35,6 @@ val wishlistModule = module {
             photoRepository = get()
         )
     }
+    singleOf(::AnalyticsRepository)
+    viewModelOf(::AnalyticsViewModel)
 }

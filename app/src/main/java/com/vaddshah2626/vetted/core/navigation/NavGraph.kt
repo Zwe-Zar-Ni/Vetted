@@ -14,6 +14,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
+import com.vaddshah2626.vetted.features.wishlist.ui.screens.AnalyticsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryDetailsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.HistoryScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistCreateScreen
@@ -60,6 +61,9 @@ fun AppNavigation() {
                             navController.navigate(NavRoutes.HistoryDetailsRoute(itemId))
                         }
                     )
+                }
+                composable<NavRoutes.AnalyticsRoute> {
+                    AnalyticsScreen()
                 }
             }
 
