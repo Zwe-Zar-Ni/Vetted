@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables
+package com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

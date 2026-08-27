@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables
+package com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -37,6 +36,7 @@ import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import java.io.File
 
 @Composable

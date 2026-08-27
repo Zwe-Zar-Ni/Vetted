@@ -40,7 +40,7 @@ import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField

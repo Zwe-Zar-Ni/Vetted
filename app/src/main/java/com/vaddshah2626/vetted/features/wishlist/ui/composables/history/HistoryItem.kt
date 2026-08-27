@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables
+package com.vaddshah2626.vetted.features.wishlist.ui.composables.history
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,6 +36,7 @@ import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import java.io.File
 
 @Composable

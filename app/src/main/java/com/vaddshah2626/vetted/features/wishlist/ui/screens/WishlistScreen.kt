@@ -26,7 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.WishlistCard
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist.WishlistCard
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import org.koin.androidx.compose.koinViewModel
