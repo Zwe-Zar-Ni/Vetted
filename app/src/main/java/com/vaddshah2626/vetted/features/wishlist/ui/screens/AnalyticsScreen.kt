@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vaddshah2626.vetted.core.db.toKString
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.analytics.CategoryBreakdown
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.analytics.DesireConversion
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.analytics.MonthlySpendingTrend
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.AnalyticsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import org.koin.androidx.compose.koinViewModel
@@ -25,7 +28,13 @@ fun AnalyticsScreen(
     viewModel: AnalyticsViewModel = koinViewModel(),
 ) {
 
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val avgDays by viewModel.avgDaysInReady.collectAsStateWithLifecycle()
+    val pipelineValue by viewModel.pipelineValue.collectAsStateWithLifecycle()
+    val conversionRate by viewModel.conversionRate.collectAsStateWithLifecycle()
+
+    val desireConversions by viewModel.desireConversions.collectAsStateWithLifecycle()
+    val categoryBreakdown by viewModel.categoryBreakdown.collectAsStateWithLifecycle()
+    val monthlySpendingTrend by viewModel.monthlySpendingTrend.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -56,7 +65,7 @@ fun AnalyticsScreen(
                         color = TextTheme.colors.textSecondary
                     )
                     Text(
-                        if (state.avgDaysInReady != null) "${state.avgDaysInReady} Days" else "N/A",
+                        if (avgDays != null) "$avgDays Days" else "N/A",
                         style = MaterialTheme.typography.bodyLarge,
                         color = TextTheme.colors.textPrimary
                     )
@@ -75,7 +84,7 @@ fun AnalyticsScreen(
                         color = TextTheme.colors.textSecondary
                     )
                     Text(
-                        "${state.conversionRate} %",
+                        "$conversionRate %",
                         style = MaterialTheme.typography.bodyLarge,
                         color = TextTheme.colors.textPrimary
                     )
@@ -94,12 +103,22 @@ fun AnalyticsScreen(
                         color = TextTheme.colors.textSecondary
                     )
                     Text(
-                        state.pipelineValue.toKString() ?: "N/A",
+                        pipelineValue.toKString(),
                         style = MaterialTheme.typography.bodyLarge,
                         color = TextTheme.colors.textPrimary
                     )
                 }
             }
+        }
+
+        Spacer(Modifier.height(20.dp))
+        Column(
+            Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(18.dp)
+        ) {
+            DesireConversion(desireConversions)
+            CategoryBreakdown(categoryBreakdown)
+            MonthlySpendingTrend(monthlySpendingTrend)
         }
     }
 }

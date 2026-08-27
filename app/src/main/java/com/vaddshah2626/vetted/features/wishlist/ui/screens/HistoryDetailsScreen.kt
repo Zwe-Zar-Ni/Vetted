@@ -38,9 +38,9 @@ import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.RetireItem
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.history.RetireItem
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.TimelineHistory
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.history.TimelineHistory
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryDetailsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
@@ -210,7 +210,7 @@ fun HistoryDetailsScreen(
                                             color = TextTheme.colors.textTertiary
                                         )
                                         Text(
-                                            item.minTargetPrice.toKString(),
+                                            item.maxTargetPrice.toKString(),
                                             style = MaterialTheme.typography.bodyMedium
                                         )
                                     }

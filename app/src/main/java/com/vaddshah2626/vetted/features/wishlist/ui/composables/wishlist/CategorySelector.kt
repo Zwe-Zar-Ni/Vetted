@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables
+package com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.features.categories.data.Category
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
