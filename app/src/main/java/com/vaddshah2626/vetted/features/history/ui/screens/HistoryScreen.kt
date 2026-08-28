@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.screens
+package com.vaddshah2626.vetted.features.history.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,8 +14,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.history.HistoryItem
-import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryViewModel
+import com.vaddshah2626.vetted.features.history.ui.history.HistoryItem
+import com.vaddshah2626.vetted.features.history.ui.viewmodels.HistoryViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import org.koin.androidx.compose.koinViewModel
 

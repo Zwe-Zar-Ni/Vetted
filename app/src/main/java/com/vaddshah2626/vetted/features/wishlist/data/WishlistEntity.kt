@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.vaddshah2626.vetted.core.enums.ItemStatus
 import com.vaddshah2626.vetted.features.categories.data.Category
 import com.vaddshah2626.vetted.features.sources.data.Source
-import kotlin.time.Clock
 
 
 @Entity(

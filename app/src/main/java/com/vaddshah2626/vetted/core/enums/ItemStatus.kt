@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.data
+package com.vaddshah2626.vetted.core.enums
 
 enum class ItemStatus {
     WISHLISTED,

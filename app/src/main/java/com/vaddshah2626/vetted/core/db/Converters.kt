@@ -1,8 +1,8 @@
 package com.vaddshah2626.vetted.core.db
 
 import androidx.room.TypeConverter
-import com.vaddshah2626.vetted.features.photos.data.PhotoType
-import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
+import com.vaddshah2626.vetted.core.enums.PhotoType
+import com.vaddshah2626.vetted.core.enums.ItemStatus
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

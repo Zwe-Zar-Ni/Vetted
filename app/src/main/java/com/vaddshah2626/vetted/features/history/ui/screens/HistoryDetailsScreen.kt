@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.screens
+package com.vaddshah2626.vetted.features.history.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,14 +35,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.photos.data.Photo
-import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
+import com.vaddshah2626.vetted.core.enums.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.history.RetireItem
+import com.vaddshah2626.vetted.features.history.ui.history.RetireItem
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.history.TimelineHistory
+import com.vaddshah2626.vetted.features.history.ui.history.TimelineHistory
+import com.vaddshah2626.vetted.features.history.ui.viewmodels.HistoryDetailsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
-import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.HistoryDetailsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -60,12 +60,12 @@ fun HistoryDetailsScreen(
     val viewModel: HistoryDetailsViewModel = koinViewModel(
         parameters = { parametersOf(itemId) }
     )
-    val wishlist by viewModel.wishlist.collectAsState()
+    val history by viewModel.history.collectAsState()
 
-    val item = wishlist?.item
-    val category = wishlist?.category
-    val photos = wishlist?.photos
-    val sources = wishlist?.sources
+    val item = history?.item
+    val category = history?.category
+    val photos = history?.photos
+    val sources = history?.sources
 
     var ratingIndicator = ""
     for (i in 0..9) {

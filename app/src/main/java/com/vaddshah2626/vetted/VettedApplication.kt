@@ -2,7 +2,9 @@ package com.vaddshah2626.vetted
 
 import android.app.Application
 import com.vaddshah2626.vetted.core.di.appModule
+import com.vaddshah2626.vetted.features.analytiics.di.analyticsModule
 import com.vaddshah2626.vetted.features.categories.di.categoryModule
+import com.vaddshah2626.vetted.features.history.di.historyModule
 import com.vaddshah2626.vetted.features.photos.di.photoModule
 import com.vaddshah2626.vetted.features.sources.di.sourceModule
 import com.vaddshah2626.vetted.features.wishlist.di.wishlistModule
@@ -14,7 +16,10 @@ class VettedApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@VettedApplication)
-            modules(appModule, wishlistModule, categoryModule , photoModule , sourceModule)
+            modules(
+                appModule, wishlistModule, categoryModule, photoModule, sourceModule,
+                historyModule, analyticsModule
+            )
         }
     }
 }

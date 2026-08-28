@@ -1,5 +1,7 @@
 package com.vaddshah2626.vetted.features.photos.data
 
+import com.vaddshah2626.vetted.core.enums.PhotoType
+
 class PhotoRepository(private val photoDao: PhotoDao) {
 
     fun getPhotosForItem(itemId: Int) {

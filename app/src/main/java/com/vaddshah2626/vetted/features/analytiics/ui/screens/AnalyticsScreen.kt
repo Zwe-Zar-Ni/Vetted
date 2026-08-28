@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.screens
+package com.vaddshah2626.vetted.features.analytiics.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.analytics.CategoryBreakdown
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.analytics.DesireConversion
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.analytics.MonthlySpendingTrend
-import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.AnalyticsViewModel
+import com.vaddshah2626.vetted.features.analytiics.ui.viewmodels.AnalyticsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import org.koin.androidx.compose.koinViewModel
 
