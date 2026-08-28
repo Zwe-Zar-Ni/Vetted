@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.vaddshah2626.vetted.ui.theme.TextTheme
 import java.io.File
 
 @Composable
@@ -56,7 +57,11 @@ fun PhotoSector(
     }
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text("Photos", style = MaterialTheme.typography.titleMedium)
+        Text(
+            "Photos",
+            style = MaterialTheme.typography.bodyLarge,
+            color = TextTheme.colors.textTertiary
+        )
 
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             // Add Photo Button

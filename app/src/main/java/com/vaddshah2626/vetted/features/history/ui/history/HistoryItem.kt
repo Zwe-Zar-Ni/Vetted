@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables.history
+package com.vaddshah2626.vetted.features.history.ui.history
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,8 +34,8 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
-import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
-import com.vaddshah2626.vetted.features.wishlist.data.WishlistWithDetails
+import com.vaddshah2626.vetted.core.enums.ItemStatus
+import com.vaddshah2626.vetted.core.models.WishlistWithDetails
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import java.io.File
 

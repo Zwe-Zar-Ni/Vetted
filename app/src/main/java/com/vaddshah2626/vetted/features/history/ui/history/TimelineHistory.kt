@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables.history
+package com.vaddshah2626.vetted.features.history.ui.history
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

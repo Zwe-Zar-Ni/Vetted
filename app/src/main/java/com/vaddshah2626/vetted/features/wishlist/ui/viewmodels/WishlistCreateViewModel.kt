@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.photos.data.PhotoRepository
-import com.vaddshah2626.vetted.features.photos.data.PhotoType
+import com.vaddshah2626.vetted.core.enums.PhotoType
 import com.vaddshah2626.vetted.features.sources.data.Source
 import com.vaddshah2626.vetted.features.sources.data.SourceRepository
-import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
+import com.vaddshah2626.vetted.core.enums.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.utils.saveImageToInternalStorage

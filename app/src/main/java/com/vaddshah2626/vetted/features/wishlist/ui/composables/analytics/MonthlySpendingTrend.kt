@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toKString
-import com.vaddshah2626.vetted.features.wishlist.model.DesireConversionDto
 import com.vaddshah2626.vetted.features.wishlist.model.MonthlySpendingDto
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 
@@ -28,7 +27,9 @@ fun MonthlySpendingTrend(
         shape = MaterialTheme.shapes.small
     ) {
         Column(
-            Modifier.fillMaxWidth().padding(12.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
@@ -42,9 +43,21 @@ fun MonthlySpendingTrend(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Month" , style = MaterialTheme.typography.bodySmall , color = TextTheme.colors.textSecondary)
-                Text("Item Count", style = MaterialTheme.typography.bodySmall , color = TextTheme.colors.textSecondary)
-                Text("Total Spent", style = MaterialTheme.typography.bodySmall , color = TextTheme.colors.textSecondary)
+                Text(
+                    "Month",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TextTheme.colors.textSecondary
+                )
+                Text(
+                    "Item Count",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TextTheme.colors.textSecondary
+                )
+                Text(
+                    "Total Spent",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TextTheme.colors.textSecondary
+                )
             }
             for (tr in trend) {
                 Row(
@@ -52,9 +65,21 @@ fun MonthlySpendingTrend(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(tr.yearMonth, style = MaterialTheme.typography.bodyMedium , color = TextTheme.colors.textPrimary)
-                    Text("${tr.itemCount}", style = MaterialTheme.typography.bodyMedium , color = TextTheme.colors.textPrimary)
-                    Text("$tr.totalSpent.toKString()", style = MaterialTheme.typography.bodyMedium , color = TextTheme.colors.textPrimary)
+                    Text(
+                        tr.yearMonth,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextTheme.colors.textPrimary
+                    )
+                    Text(
+                        "${tr.itemCount}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextTheme.colors.textPrimary
+                    )
+                    Text(
+                        tr.totalSpent.toKString(),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextTheme.colors.textPrimary
+                    )
                 }
             }
         }

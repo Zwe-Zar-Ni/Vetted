@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.photos.data
+package com.vaddshah2626.vetted.core.enums
 
 enum class PhotoType {
     PRODUCT,

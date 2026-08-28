@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables.history
+package com.vaddshah2626.vetted.features.history.ui.history
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.features.wishlist.data.ItemStatus
+import com.vaddshah2626.vetted.core.enums.ItemStatus
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
