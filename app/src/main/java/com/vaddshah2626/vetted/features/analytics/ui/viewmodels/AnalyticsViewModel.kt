@@ -1,8 +1,8 @@
-package com.vaddshah2626.vetted.features.analytiics.ui.viewmodels
+package com.vaddshah2626.vetted.features.analytics.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vaddshah2626.vetted.features.analytiics.data.AnalyticsRepository
+import com.vaddshah2626.vetted.features.analytics.data.AnalyticsRepository
 import com.vaddshah2626.vetted.features.wishlist.model.CategoryBreakdownDto
 import com.vaddshah2626.vetted.features.wishlist.model.DesireConversionDto
 import com.vaddshah2626.vetted.features.wishlist.model.MonthlySpendingDto

@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist
+package com.vaddshah2626.vetted.features.wishlist.ui.composables
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

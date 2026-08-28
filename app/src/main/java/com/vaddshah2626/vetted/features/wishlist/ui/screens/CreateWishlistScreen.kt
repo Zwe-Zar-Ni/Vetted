@@ -39,8 +39,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist.CategorySelector
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist.PhotoSector
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategorySelector
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoSector
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
 import org.koin.androidx.compose.koinViewModel

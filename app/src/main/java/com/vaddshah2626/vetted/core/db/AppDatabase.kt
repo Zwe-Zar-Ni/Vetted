@@ -3,7 +3,7 @@ package com.vaddshah2626.vetted.core.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.vaddshah2626.vetted.features.analytiics.data.AnalyticsDao
+import com.vaddshah2626.vetted.features.analytics.data.AnalyticsDao
 import com.vaddshah2626.vetted.features.categories.data.Category
 import com.vaddshah2626.vetted.features.categories.data.CategoryDao
 import com.vaddshah2626.vetted.features.history.data.HistoryDao

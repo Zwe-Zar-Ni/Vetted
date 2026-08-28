@@ -38,13 +38,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
-import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.core.enums.ItemStatus
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.wishlist.BuyItemAction
+import com.vaddshah2626.vetted.features.photos.data.Photo
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import kotlinx.coroutines.launch
@@ -98,25 +98,6 @@ fun WishlistDetailsScreen(
                                 onClick = onNavigateBack
                             )
                         )
-                        if (item != null) {
-                            Button(
-                                onClick = {
-                                    scope.launch {
-                                        viewModel.updateWishlist(
-                                            item.copy(
-                                                status = ItemStatus.READY
-                                            )
-                                        )
-                                    }
-                                },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.background,
-                                    contentColor = MaterialTheme.colorScheme.onBackground,
-                                )
-                            ) {
-                                Text("Cancel")
-                            }
-                        }
                     }
                 },
                 windowInsets = WindowInsets(0, 0, 0, 0),
@@ -308,14 +289,14 @@ fun WishlistDetailsScreen(
                     VariationNote(
                         note = item.variationsNote,
                         onEditNote = { note ->
-                        scope.launch {
-                            viewModel.updateWishlist(
-                                item.copy(
-                                    variationsNote = note
+                            scope.launch {
+                                viewModel.updateWishlist(
+                                    item.copy(
+                                        variationsNote = note
+                                    )
                                 )
-                            )
-                        }
-                    })
+                            }
+                        })
                 }
             }
 
@@ -358,6 +339,30 @@ fun WishlistDetailsScreen(
                 )
             }
 
+            // ? Cancel item
+            if (item != null) {
+                item {
+                    Spacer(Modifier.height(20.dp))
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                viewModel.updateWishlist(
+                                    item.copy(
+                                        status = ItemStatus.READY
+                                    )
+                                )
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer,
+                            contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Cancel Item")
+                    }
+                }
+            }
         }
     }
 }
