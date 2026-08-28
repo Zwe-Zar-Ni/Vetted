@@ -2,7 +2,7 @@ package com.vaddshah2626.vetted
 
 import android.app.Application
 import com.vaddshah2626.vetted.core.di.appModule
-import com.vaddshah2626.vetted.features.analytiics.di.analyticsModule
+import com.vaddshah2626.vetted.features.analytics.di.analyticsModule
 import com.vaddshah2626.vetted.features.categories.di.categoryModule
 import com.vaddshah2626.vetted.features.history.di.historyModule
 import com.vaddshah2626.vetted.features.photos.di.photoModule

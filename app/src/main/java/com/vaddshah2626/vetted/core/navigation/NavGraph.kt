@@ -13,10 +13,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
-import com.vaddshah2626.vetted.features.analytiics.ui.screens.AnalyticsScreen
+import com.vaddshah2626.vetted.features.analytics.ui.screens.AnalyticsScreen
 import com.vaddshah2626.vetted.features.history.ui.screens.HistoryDetailsScreen
 import com.vaddshah2626.vetted.features.history.ui.screens.HistoryScreen
+import com.vaddshah2626.vetted.features.onboarding.screens.WelcomeScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistCreateScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistDetailsScreen
 import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
@@ -46,21 +46,17 @@ fun AppNavigation() {
             // ? Tab screens
             navigation<NavRoutes.TabRoutes>(startDestination = NavRoutes.WishlistRoute) {
                 composable<NavRoutes.WishlistRoute> {
-                    WishlistScreen(
-                        onCreateClick = {
-                            navController.navigate(NavRoutes.WishlistCreateRoute)
-                        },
-                        onWishlistClick = { wishlistId ->
-                            navController.navigate(NavRoutes.WishlistDetailsRoute(wishlistId))
-                        }
-                    )
+                    WishlistScreen(onCreateClick = {
+                        navController.navigate(NavRoutes.WishlistCreateRoute)
+                    }, onWishlistClick = { wishlistId ->
+                        navController.navigate(NavRoutes.WishlistDetailsRoute(wishlistId))
+                    })
                 }
                 composable<NavRoutes.HistoryRoute> {
                     HistoryScreen(
                         onItemClick = { itemId ->
                             navController.navigate(NavRoutes.HistoryDetailsRoute(itemId))
-                        }
-                    )
+                        })
                 }
                 composable<NavRoutes.AnalyticsRoute> {
                     AnalyticsScreen()
@@ -74,8 +70,7 @@ fun AppNavigation() {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
-                    }
-                )
+                    })
             }
 
             composable<NavRoutes.WishlistCreateRoute> {
@@ -84,30 +79,25 @@ fun AppNavigation() {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
-                    }
-                )
+                    })
             }
             composable<NavRoutes.WishlistDetailsRoute> { backStackEntry ->
                 val parameters = backStackEntry.toRoute<NavRoutes.WishlistDetailsRoute>()
                 WishlistDetailsScreen(
-                    wishlistId = parameters.wishlistId,
-                    onNavigateBack = {
+                    wishlistId = parameters.wishlistId, onNavigateBack = {
                         navController.navigate(NavRoutes.TabRoutes) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
-                    }
-                )
+                    })
             }
             composable<NavRoutes.HistoryDetailsRoute> { backStackEntry ->
                 val parameters = backStackEntry.toRoute<NavRoutes.HistoryDetailsRoute>()
                 HistoryDetailsScreen(
-                    itemId = parameters.itemId,
-                    onNavigateBack = {
+                    itemId = parameters.itemId, onNavigateBack = {
                         navController.navigate(NavRoutes.HistoryRoute) {
                             popUpTo(NavRoutes.TabRoutes) { inclusive = true }
                         }
-                    }
-                )
+                    })
             }
         }
     }

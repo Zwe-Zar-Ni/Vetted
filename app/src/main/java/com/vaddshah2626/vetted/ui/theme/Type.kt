@@ -14,13 +14,13 @@ val AppTypography = Typography(
     ),
     headlineMedium = TextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 26.sp,
+        fontSize = 27.sp,
         lineHeight = 34.sp,
         letterSpacing = 0.sp
     ),
     headlineLarge = TextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
+        fontSize = 30.sp,
         lineHeight = 36.sp,
         letterSpacing = 0.sp
     ),
@@ -37,7 +37,7 @@ val AppTypography = Typography(
         letterSpacing = 0.sp
     ),
     bodyLarge = TextStyle(
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.15.sp

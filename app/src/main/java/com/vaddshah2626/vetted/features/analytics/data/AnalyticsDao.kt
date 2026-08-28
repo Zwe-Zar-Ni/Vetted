@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.analytiics.data
+package com.vaddshah2626.vetted.features.analytics.data
 
 import androidx.room.Dao
 import androidx.room.Query

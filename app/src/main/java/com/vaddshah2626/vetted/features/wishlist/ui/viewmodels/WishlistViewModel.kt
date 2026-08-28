@@ -20,6 +20,18 @@ class WishlistViewModel(private val repository: WishlistRepository) : ViewModel(
         initialValue = emptyList()
     )
 
+    val categories = repository.categories.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null
+    )
+
+    val currentMonthSpending = repository.currentMonthSpending.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = 0.0
+    )
+
     suspend fun checkWishlistsStatus() {
         if (refreshed) return
         println("Refreshing . . .")

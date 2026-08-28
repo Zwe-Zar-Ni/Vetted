@@ -1,9 +1,9 @@
 package com.vaddshah2626.vetted.features.wishlist.di
 
 import com.vaddshah2626.vetted.core.db.AppDatabase
-import com.vaddshah2626.vetted.features.analytiics.data.AnalyticsRepository
+import com.vaddshah2626.vetted.features.analytics.data.AnalyticsRepository
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
-import com.vaddshah2626.vetted.features.analytiics.ui.viewmodels.AnalyticsViewModel
+import com.vaddshah2626.vetted.features.analytics.ui.viewmodels.AnalyticsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistViewModel
