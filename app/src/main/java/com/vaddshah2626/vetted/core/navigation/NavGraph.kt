@@ -31,6 +31,11 @@ fun AppNavigation(initialRoute: String? = "welcome_route") {
         else -> NavRoutes.WelcomeRoute
     }
 
+    val initialTabDestination = when (initialRoute) {
+        "analytics" -> NavRoutes.AnalyticsRoute
+        else -> NavRoutes.WishlistRoute
+    }
+
     val navController = rememberNavController()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -51,7 +56,7 @@ fun AppNavigation(initialRoute: String? = "welcome_route") {
         ) {
 
             // ? Tab screens
-            navigation<NavRoutes.TabRoutes>(startDestination = NavRoutes.WishlistRoute) {
+            navigation<NavRoutes.TabRoutes>(startDestination = initialTabDestination) {
                 composable<NavRoutes.WishlistRoute> {
                     WishlistScreen(onCreateClick = {
                         navController.navigate(NavRoutes.WishlistCreateRoute)
