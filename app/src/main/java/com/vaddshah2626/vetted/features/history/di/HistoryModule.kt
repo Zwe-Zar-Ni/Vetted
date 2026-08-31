@@ -17,7 +17,7 @@ val historyModule = module {
         HistoryDetailsViewModel(
             repository = get(),
             itemId = itemId,
-            photoRepository = get()
+            photoRepository = get(),
         )
     }
 }

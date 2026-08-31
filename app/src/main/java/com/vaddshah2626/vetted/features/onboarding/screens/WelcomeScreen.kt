@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,8 +31,15 @@ fun WelcomeScreen(
 
     val categories by viewModel.categories.collectAsState()
 
-    if (categories != null && categories!!.isEmpty()) {
-        viewModel.seedInitialCategories()
+    LaunchedEffect(categories) {
+        if(categories == null) {
+            return@LaunchedEffect;
+        }
+        if (categories!!.isEmpty()) {
+            viewModel.seedInitialCategories()
+        } else {
+            onContinue()
+        }
     }
 
     Column(

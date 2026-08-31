@@ -7,6 +7,7 @@ import com.vaddshah2626.vetted.features.analytics.ui.viewmodels.AnalyticsViewMod
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistCreateViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
@@ -22,7 +23,8 @@ val wishlistModule = module {
             get(),
             wishlistId = wishlistId,
             get(),
-            get()
+            get(),
+            androidContext()
         )
     }
     singleOf(::AnalyticsRepository)

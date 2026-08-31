@@ -2,13 +2,24 @@ package com.vaddshah2626.vetted.features.analytics.data
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.vaddshah2626.vetted.features.wishlist.model.CategoryBreakdownDto
-import com.vaddshah2626.vetted.features.wishlist.model.DesireConversionDto
-import com.vaddshah2626.vetted.features.wishlist.model.MonthlySpendingDto
+import com.vaddshah2626.vetted.features.analytics.model.CategoryBreakdownDto
+import com.vaddshah2626.vetted.features.analytics.model.DesireConversionDto
+import com.vaddshah2626.vetted.features.analytics.model.MonthlySpendingDto
+import com.vaddshah2626.vetted.features.analytics.model.WishlistStatusCountsDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnalyticsDao {
+
+    @Query(
+        """
+    SELECT 
+        COUNT(CASE WHEN status = 'WISHLISTED' THEN 1 END) AS wishlistedCount,
+        COUNT(CASE WHEN status = 'READY' THEN 1 END) AS readyCount
+    FROM wishlists
+    """
+    )
+    fun getWishlistAndReadyCounts(): Flow<WishlistStatusCountsDto>
 
     @Query(
         """

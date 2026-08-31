@@ -1,11 +1,14 @@
 package com.vaddshah2626.vetted.features.analytics.data
 
-import com.vaddshah2626.vetted.features.wishlist.model.CategoryBreakdownDto
-import com.vaddshah2626.vetted.features.wishlist.model.DesireConversionDto
-import com.vaddshah2626.vetted.features.wishlist.model.MonthlySpendingDto
+import com.vaddshah2626.vetted.features.analytics.model.CategoryBreakdownDto
+import com.vaddshah2626.vetted.features.analytics.model.DesireConversionDto
+import com.vaddshah2626.vetted.features.analytics.model.MonthlySpendingDto
+import com.vaddshah2626.vetted.features.analytics.model.WishlistStatusCountsDto
 import kotlinx.coroutines.flow.Flow
 
 class AnalyticsRepository(private val dao: AnalyticsDao) {
+
+    fun getWishlistAndReadyCounts() : Flow<WishlistStatusCountsDto> = dao.getWishlistAndReadyCounts()
 
     fun getAverageDaysInReady(): Flow<Double?> = dao.getAverageDaysInReady()
     fun getWishlistPipelineValue(): Flow<Double> = dao.getWishlistPipelineValue()
