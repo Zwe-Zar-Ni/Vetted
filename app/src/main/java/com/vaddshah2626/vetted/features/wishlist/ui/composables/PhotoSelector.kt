@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -105,14 +106,14 @@ fun PhotoSector(
                         onClick = { onRemovePhoto(path) },
                         modifier = Modifier
                             .align(Alignment.TopEnd)
-                            .size(12.dp)
-                            .background(MaterialTheme.colorScheme.error, CircleShape)
+                            .size(20.dp)
+                            .background(MaterialTheme.colorScheme.error, CircleShape).padding(4.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "Remove",
                             tint = MaterialTheme.colorScheme.onError,
-                            modifier = Modifier.size(14.dp)
+                            modifier = Modifier.size(16.dp)
                         )
                     }
                 }

@@ -83,4 +83,7 @@ dependencies {
     // ? For interop APIs with Material 3
     implementation("androidx.glance:glance-material3:1.2.0")
 
+    // ? Charts
+    implementation ("io.github.ehsannarmani:compose-charts:1.0.0")
+
 }

@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 data class WishlistFormState(
     val title: String = "",
     val categoryId: Int? = null,
-    val desireRating: Int = 5,
+    val desireRating: Int = 3,
     val minTargetPrice: String = "",
     val maxTargetPrice: String = "",
     val variationsNote: String = "",

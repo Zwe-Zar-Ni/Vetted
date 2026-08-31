@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,32 +26,29 @@ import com.vaddshah2626.vetted.ui.theme.TextTheme
 
 @Composable
 fun TotalReady(
-    value : Double
+    value : Double,
+    modifier : Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
-        Box(Modifier.fillMaxWidth().height(100.dp).padding(12.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.ready),
-                contentDescription = "Clock Icon",
-                modifier = Modifier.size(100.dp).align(Alignment.TopEnd).rotate(15f).graphicsLayer(alpha = 0.7f)
-            )
+        Box(Modifier.fillMaxWidth().padding(12.dp)) {
             Column(
                 Modifier.align(Alignment.BottomStart)
             ) {
+                Text("Total Ready Value" , style = MaterialTheme.typography.titleSmall , color = TextTheme.colors.textSecondary)
                 Text(
                     value.toKString(),
                     style = MaterialTheme.typography.headlineLarge,
                     color = TextTheme.colors.textPrimary
                 )
                 Text(
-                    "Total value of buy all Ready items",
-                    style = MaterialTheme.typography.bodyMedium,
+                    "Total value to buy all Ready items",
+                    style = MaterialTheme.typography.bodySmall,
                     color = TextTheme.colors.textSecondary
                 )
             }

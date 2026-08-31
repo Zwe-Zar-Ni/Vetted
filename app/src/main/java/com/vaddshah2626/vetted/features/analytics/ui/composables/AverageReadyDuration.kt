@@ -22,25 +22,21 @@ import com.vaddshah2626.vetted.ui.theme.TextTheme
 
 @Composable
 fun AverageReadyDuration(
-    duration : Double?
+    duration : Double?,
+    modifier : Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
-        Box(Modifier.fillMaxWidth().height(100.dp).padding(12.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.clock),
-                contentDescription = "Clock Icon",
-                modifier = Modifier.size(100.dp).align(Alignment.TopStart).graphicsLayer(alpha = 0.7f)
-            )
+        Box(Modifier.fillMaxWidth().padding(12.dp)) {
             Column(
                 Modifier.align(Alignment.BottomEnd),
-                horizontalAlignment = Alignment.End
             ) {
+                Text("Average Stall" , style = MaterialTheme.typography.titleSmall , color = TextTheme.colors.textSecondary)
                 Text(
                     if (duration != null) "$duration Days" else "N/A",
                     style = MaterialTheme.typography.headlineLarge,
@@ -48,7 +44,7 @@ fun AverageReadyDuration(
                 )
                 Text(
                     "Average days items spend in Ready stage",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     color = TextTheme.colors.textSecondary
                 )
             }
