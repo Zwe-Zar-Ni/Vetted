@@ -1,103 +1,68 @@
 package com.vaddshah2626.vetted.features.analytics.ui.composables
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.core.EaseInOutCubic
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.R
-import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.analytics.model.MonthlySpendingDto
-import com.vaddshah2626.vetted.ui.theme.TextTheme
+import ir.ehsannarmani.compose_charts.LineChart
+import ir.ehsannarmani.compose_charts.models.AnimationMode
+import ir.ehsannarmani.compose_charts.models.DrawStyle
+import ir.ehsannarmani.compose_charts.models.Line
 
 @Composable
 fun MonthlySpendingTrend(
     trend: List<MonthlySpendingDto>
 ) {
+
+    val data = listOf(
+        Line(
+            label = "Monthly Spent",
+            values = trend.map { it.totalSpent },
+            color = SolidColor(MaterialTheme.colorScheme.secondary),
+            firstGradientFillColor = MaterialTheme.colorScheme.primary.copy(0.7f),
+            secondGradientFillColor = Color.Transparent,
+            strokeAnimationSpec = tween(2000, easing = EaseInOutCubic),
+            gradientAnimationDelay = 1000,
+            drawStyle = DrawStyle.Stroke(width = 2.dp),
+        )
+    )
+
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(280.dp),
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
-        Box(Modifier.fillMaxWidth().padding(12.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.calendar),
-                contentDescription = "Clock Icon",
-                modifier = Modifier.size(120.dp).align(Alignment.BottomStart).graphicsLayer(alpha = 0.5f)
+        Column(
+            Modifier.padding(12.dp)
+        ) {
+            Text("Category Breakdown")
+            Spacer(Modifier.height(12.dp))
+            LineChart(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp),
+                data = data,
+                animationMode = AnimationMode.Together(delayBuilder = {
+                    it * 500L
+                }),
             )
-
-            Column(
-                Modifier.fillMaxWidth().height(250.dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                Text(
-                    "Total amount spent on items month-over-month.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = TextTheme.colors.textSecondary
-                )
-                Spacer(Modifier.height(2.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        "Month",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextTheme.colors.textSecondary
-                    )
-                    Text(
-                        "Item Count",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextTheme.colors.textSecondary
-                    )
-                    Text(
-                        "Total Spent",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextTheme.colors.textSecondary
-                    )
-                }
-                for (tr in trend) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            tr.yearMonth,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = TextTheme.colors.textPrimary
-                        )
-                        Text(
-                            "${tr.itemCount}",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = TextTheme.colors.textPrimary
-                        )
-                        Text(
-                            tr.totalSpent.toKString(),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = TextTheme.colors.textPrimary
-                        )
-                    }
-                }
-            }
         }
     }
 }

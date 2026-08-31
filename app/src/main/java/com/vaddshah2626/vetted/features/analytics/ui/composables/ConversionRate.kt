@@ -22,24 +22,21 @@ import com.vaddshah2626.vetted.ui.theme.TextTheme
 
 @Composable
 fun ConversionRate(
-    conversionRate: Double
+    conversionRate: Double,
+    modifier : Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
-        Box(Modifier.fillMaxWidth().height(100.dp).padding(12.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.chart),
-                contentDescription = "Clock Icon",
-                modifier = Modifier.size(100.dp).align(Alignment.TopEnd).graphicsLayer(alpha = 0.7f)
-            )
+        Box(Modifier.fillMaxWidth().padding(12.dp)) {
             Column(
                 Modifier.align(Alignment.BottomStart)
             ) {
+                Text("Conversion Rate" , style = MaterialTheme.typography.titleSmall , color = TextTheme.colors.textSecondary)
                 Text(
                     "$conversionRate %",
                     style = MaterialTheme.typography.headlineLarge,
@@ -47,7 +44,7 @@ fun ConversionRate(
                 )
                 Text(
                     "Percentage of wishlisted items that actually get bought",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     color = TextTheme.colors.textSecondary
                 )
             }

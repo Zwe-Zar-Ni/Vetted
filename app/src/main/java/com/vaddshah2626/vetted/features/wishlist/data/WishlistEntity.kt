@@ -41,7 +41,7 @@ data class Wishlist(
 
     // --- Pre-Purchase / Evaluation Fields ---
     @ColumnInfo(name = "desire_rating")
-    val desireRating: Int, // Range 1 to 10
+    val desireRating: Int, // Range 1 to 5
 
     @ColumnInfo(name = "min_target_price")
     val minTargetPrice: Double,

@@ -77,7 +77,7 @@ fun WishlistCreateScreen(
                             )
                         }
                         Text(
-                            "Add Something",
+                            "Add To Wishlist",
                             style = MaterialTheme.typography.headlineSmall,
                             modifier = Modifier.align(Alignment.Center)
                         )
@@ -168,12 +168,12 @@ fun WishlistCreateScreen(
 
             // Desire Rating (1-10 Slider or Segmented Buttons)
             item {
-                Text("Desire Rating: ${state.desireRating} / 10")
+                Text("Desire Rating: ${state.desireRating} / 5")
                 Slider(
                     value = state.desireRating.toFloat(),
                     onValueChange = { viewModel.onDesireRatingChanged(it.roundToInt()) },
-                    valueRange = 1f..10f,
-                    steps = 8
+                    valueRange = 1f..5f,
+                    steps = 3
                 )
             }
 

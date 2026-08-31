@@ -1,6 +1,5 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -39,10 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.vaddshah2626.vetted.R
 import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.features.categories.data.Category
@@ -120,16 +116,13 @@ fun WishlistScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.small,
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
             )
         ) {
-            Box(Modifier.fillMaxWidth().height(100.dp).padding(12.dp)) {
-                Image(
-                    painter = painterResource(id = R.drawable.calendar),
-                    contentDescription = "Clock Icon",
-                    modifier = Modifier.size(100.dp).align(Alignment.TopEnd).graphicsLayer(alpha = 0.7f)
-                )
+            Box(Modifier
+                .fillMaxWidth()
+                .padding(12.dp)) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -157,12 +150,12 @@ fun WishlistScreen(
                     modifier = Modifier
                         .border(
                             width = 1.dp,
-                            color = if (selectedCategory == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.background,
+                            color = if (selectedCategory == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.surfaceContainer,
                             shape = RoundedCornerShape(24.dp)
                         )
                         .clip(RoundedCornerShape(24.dp))
                         .background(
-                            color = if (selectedCategory == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.background,
+                            color = if (selectedCategory == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surfaceContainer,
                             shape = RoundedCornerShape(24.dp)
                         )
                         .padding(vertical = 8.dp, horizontal = 12.dp)
@@ -171,8 +164,8 @@ fun WishlistScreen(
                                 onCategoryChange(0)
                             }
                         ),
-                    iconTint = if (selectedCategory == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground,
-                    textColor = if (selectedCategory == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground,
+                    iconTint = if (selectedCategory == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSecondaryContainer,
+                    textColor = if (selectedCategory == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
             if (categories?.isNotEmpty() ?: false) {
@@ -183,12 +176,12 @@ fun WishlistScreen(
                             modifier = Modifier
                                 .border(
                                     width = 1.dp,
-                                    color = if (selectedCategory == category.id) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.background,
+                                    color = if (selectedCategory == category.id) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.surfaceContainer,
                                     shape = RoundedCornerShape(24.dp)
                                 )
                                 .clip(RoundedCornerShape(24.dp))
                                 .background(
-                                    color = if (selectedCategory == category.id) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.background,
+                                    color = if (selectedCategory == category.id) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surfaceContainer,
                                     shape = RoundedCornerShape(24.dp)
                                 )
                                 .padding(vertical = 8.dp, horizontal = 12.dp)
@@ -197,8 +190,8 @@ fun WishlistScreen(
                                         onCategoryChange(category.id)
                                     }
                                 ),
-                            iconTint = if (selectedCategory == category.id) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground,
-                            textColor = if (selectedCategory == category.id) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground,
+                            iconTint = if (selectedCategory == category.id) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSecondaryContainer,
+                            textColor = if (selectedCategory == category.id) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSecondaryContainer,
                         )
                     }
                 }
