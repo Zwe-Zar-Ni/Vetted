@@ -72,7 +72,7 @@ fun WishlistDetailsScreen(
     val sources = wishlist?.sources
 
     var ratingIndicator = ""
-    for (i in 0..9) {
+    for (i in 1..5) {
         ratingIndicator += if (i < (item?.desireRating ?: 0)) {
             "♥\uFE0E"
         } else {
