@@ -1,5 +1,7 @@
 package com.vaddshah2626.vetted.features.wishlist.ui.viewmodels
 
+import android.content.Context
+import androidx.glance.appwidget.updateAll
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vaddshah2626.vetted.features.photos.data.Photo
@@ -11,6 +13,7 @@ import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.core.models.WishlistWithDetails
 import com.vaddshah2626.vetted.features.wishlist.utils.deleteImageFromInternalStorage
+import com.vaddshah2626.vetted.widget.MyGlanceWidget
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +23,8 @@ class WishlistDetailsViewModel(
     private val repository: WishlistRepository,
     wishlistId: Int,
     private val sourceRepository: SourceRepository,
-    private val photoRepository: PhotoRepository
+    private val photoRepository: PhotoRepository,
+    private val context: Context
 ) : ViewModel() {
 
 
@@ -33,10 +37,12 @@ class WishlistDetailsViewModel(
         )
 
     suspend fun updateWishlist(wishlist: Wishlist) {
+        MyGlanceWidget().updateAll(context)
         repository.updateWishlist(wishlist)
     }
 
     suspend fun purchaseWishlist(wishlist : Wishlist) {
+        MyGlanceWidget().updateAll(context)
         repository.updateWishlist(
             wishlist.copy(
                 status = ItemStatus.PURCHASED,

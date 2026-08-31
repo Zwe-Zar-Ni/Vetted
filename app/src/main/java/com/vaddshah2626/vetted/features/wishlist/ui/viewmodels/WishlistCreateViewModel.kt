@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.glance.appwidget.updateAll
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vaddshah2626.vetted.features.photos.data.Photo
@@ -16,6 +17,7 @@ import com.vaddshah2626.vetted.core.enums.ItemStatus
 import com.vaddshah2626.vetted.features.wishlist.data.Wishlist
 import com.vaddshah2626.vetted.features.wishlist.data.WishlistRepository
 import com.vaddshah2626.vetted.features.wishlist.utils.saveImageToInternalStorage
+import com.vaddshah2626.vetted.widget.MyGlanceWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -41,7 +43,8 @@ data class WishlistFormState(
 class WishlistCreateViewModel(
     private val repository: WishlistRepository,
     private val photoRepository: PhotoRepository,
-    private val sourceRepository: SourceRepository
+    private val sourceRepository: SourceRepository,
+    private val context: Context
 ) : ViewModel() {
 
 
@@ -168,6 +171,8 @@ class WishlistCreateViewModel(
                     )
                 )
             }
+
+            MyGlanceWidget().updateAll(context)
 
             onSuccess()
         }

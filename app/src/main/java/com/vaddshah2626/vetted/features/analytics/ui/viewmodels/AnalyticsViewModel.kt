@@ -3,9 +3,9 @@ package com.vaddshah2626.vetted.features.analytics.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vaddshah2626.vetted.features.analytics.data.AnalyticsRepository
-import com.vaddshah2626.vetted.features.wishlist.model.CategoryBreakdownDto
-import com.vaddshah2626.vetted.features.wishlist.model.DesireConversionDto
-import com.vaddshah2626.vetted.features.wishlist.model.MonthlySpendingDto
+import com.vaddshah2626.vetted.features.analytics.model.CategoryBreakdownDto
+import com.vaddshah2626.vetted.features.analytics.model.DesireConversionDto
+import com.vaddshah2626.vetted.features.analytics.model.MonthlySpendingDto
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn

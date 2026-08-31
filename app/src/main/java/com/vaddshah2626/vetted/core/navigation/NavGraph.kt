@@ -23,7 +23,14 @@ import com.vaddshah2626.vetted.features.wishlist.ui.screens.WishlistScreen
 import com.vaddshah2626.vetted.shared.components.NavBar
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(initialRoute: String? = "welcome_route") {
+
+    val initialStartDestination = when (initialRoute) {
+        "create_wishlist" -> NavRoutes.WishlistCreateRoute
+        "analytics" -> NavRoutes.TabRoutes
+        else -> NavRoutes.WelcomeRoute
+    }
+
     val navController = rememberNavController()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -39,7 +46,7 @@ fun AppNavigation() {
     }) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = NavRoutes.TabRoutes,
+            startDestination = initialStartDestination,
             modifier = Modifier.padding(innerPadding)
         ) {
 

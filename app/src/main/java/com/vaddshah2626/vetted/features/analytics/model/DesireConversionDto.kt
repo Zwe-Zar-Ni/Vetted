@@ -1,4 +1,4 @@
-package com.vaddshah2626.vetted.features.wishlist.model
+package com.vaddshah2626.vetted.features.analytics.model
 
 data class DesireConversionDto(
     val desireRating: Int,

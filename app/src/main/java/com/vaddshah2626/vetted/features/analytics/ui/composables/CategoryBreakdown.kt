@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.vaddshah2626.vetted.R
 import com.vaddshah2626.vetted.core.db.toKString
-import com.vaddshah2626.vetted.features.wishlist.model.CategoryBreakdownDto
+import com.vaddshah2626.vetted.features.analytics.model.CategoryBreakdownDto
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 
 @Composable

@@ -78,4 +78,9 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-compose:3.5.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
 
+    // ? For AppWidgets support
+    implementation("androidx.glance:glance-appwidget:1.2.0")
+    // ? For interop APIs with Material 3
+    implementation("androidx.glance:glance-material3:1.2.0")
+
 }
