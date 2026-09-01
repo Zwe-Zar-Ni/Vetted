@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     // ? serialization for navigation
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.4.0"
 
     // ? For Room Databasse
     id("com.google.devtools.ksp")
@@ -28,7 +28,12 @@ android {
     buildTypes {
         release {
             optimization {
-                enable = false
+                isMinifyEnabled = true
+                isShrinkResources = true
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
             }
         }
     }
@@ -73,5 +78,17 @@ dependencies {
     // ? Room Database
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
+
+    // ? Coil for image loading
+    implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
+
+    // ? For AppWidgets support
+    implementation("androidx.glance:glance-appwidget:1.2.0")
+    // ? For interop APIs with Material 3
+    implementation("androidx.glance:glance-material3:1.2.0")
+
+    // ? Charts
+    implementation ("io.github.ehsannarmani:compose-charts:1.0.0")
 
 }

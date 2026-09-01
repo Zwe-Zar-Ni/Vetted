@@ -2,19 +2,13 @@ package com.vaddshah2626.vetted.shared.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BarChart
-import androidx.compose.material.icons.filled.CheckBox
-import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Receipt
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
@@ -33,9 +27,8 @@ data class NavItem(
 
 private val navItems = listOf(
     NavItem(title = "Wishlist", icon = Icons.Default.Checklist, route = NavRoutes.WishlistRoute),
-    NavItem(title = "History", icon = Icons.Default.History, route = NavRoutes.WelcomeRoute),
-    NavItem(title = "Analytics", icon = Icons.Default.BarChart, route = NavRoutes.WelcomeRoute),
-    NavItem(title = "Profile", icon = Icons.Default.Person, route = NavRoutes.WelcomeRoute),
+    NavItem(title = "History", icon = Icons.Default.History, route = NavRoutes.HistoryRoute),
+    NavItem(title = "Analytics", icon = Icons.Default.BarChart, route = NavRoutes.AnalyticsRoute),
 )
 
 @Composable
@@ -49,7 +42,9 @@ fun NavBar(navController: NavHostController) {
         } == true
     }
 
-    NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+    ) {
         navItems.forEach { item ->
             NavigationBarItem(
                 selected = isCurrentRoute(item),
@@ -68,11 +63,12 @@ fun NavBar(navController: NavHostController) {
                         contentDescription = item.title
                     )
                 },
-                label = { Text(item.title, style = MaterialTheme.typography.bodyMedium) },
+//                label = { Text(item.title, style = MaterialTheme.typography.bodyMedium) },
+                label = {},
                 alwaysShowLabel = false,
                 colors = NavigationBarItemDefaults.colors(
                     selectedTextColor = MaterialTheme.colorScheme.primary,
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
+//                    selectedIconColor = MaterialTheme.colorScheme.primary,
                     indicatorColor = Color.Transparent,
                 )
             )

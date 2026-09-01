@@ -16,4 +16,21 @@ sealed class NavRoutes {
 
     @Serializable
     object WishlistRoute : NavRoutes()
+
+    @Serializable
+    object HistoryRoute : NavRoutes()
+
+    @Serializable
+    object AnalyticsRoute : NavRoutes()
+
+    // ? Other screens
+
+    @Serializable
+    object WishlistCreateRoute : NavRoutes()
+
+    @Serializable
+    data class WishlistDetailsRoute(val wishlistId : Int) : NavRoutes()
+
+    @Serializable
+    data class HistoryDetailsRoute(val itemId : Int) : NavRoutes()
 }

@@ -10,7 +10,7 @@ val appModule = module {
         Room.databaseBuilder(
             get(),
             AppDatabase::class.java,
-            "app_database"
+            "vetted_database"
         ).build()
     }
 
