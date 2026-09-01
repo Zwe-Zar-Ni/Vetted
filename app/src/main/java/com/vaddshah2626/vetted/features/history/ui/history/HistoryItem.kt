@@ -119,7 +119,7 @@ fun HistoryItem(
                     )
                 }
                 Text(
-                    "♥\uFE0E ${wishlist.item.desireRating} / 10",
+                    "♥\uFE0E ${wishlist.item.desireRating} / 5",
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,

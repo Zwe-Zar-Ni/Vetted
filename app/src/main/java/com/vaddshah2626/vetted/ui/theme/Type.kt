@@ -20,9 +20,9 @@ val AppTypography = Typography(
     ),
     headlineLarge = TextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 30.sp,
+        fontSize = 32.sp,
         lineHeight = 36.sp,
-        letterSpacing = 0.sp
+        letterSpacing = 1.sp
     ),
     titleLarge = TextStyle(
         fontWeight = FontWeight.SemiBold,
