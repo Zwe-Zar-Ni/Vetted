@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,11 +40,11 @@ import com.vaddshah2626.vetted.core.db.toFormattedDate
 import com.vaddshah2626.vetted.core.db.toKString
 import com.vaddshah2626.vetted.core.enums.ItemStatus
 import com.vaddshah2626.vetted.features.photos.data.Photo
+import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.CategoryBadge
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.PhotoCarousel
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.SourcesField
 import com.vaddshah2626.vetted.features.wishlist.ui.composables.VariationNote
-import com.vaddshah2626.vetted.features.wishlist.ui.composables.BuyItemAction
 import com.vaddshah2626.vetted.features.wishlist.ui.viewmodels.WishlistDetailsViewModel
 import com.vaddshah2626.vetted.ui.theme.TextTheme
 import kotlinx.coroutines.launch
@@ -172,7 +172,7 @@ fun WishlistDetailsScreen(
                             color = TextTheme.colors.textSecondary
                         )
                         Text(
-                            "Desire Rating : ${item.desireRating} / 10",
+                            "Desire Rating : ${item.desireRating} / 5",
                             style = MaterialTheme.typography.bodySmall,
                             color = TextTheme.colors.textSecondary
                         )
@@ -343,7 +343,7 @@ fun WishlistDetailsScreen(
             if (item != null) {
                 item {
                     Spacer(Modifier.height(20.dp))
-                    Button(
+                    OutlinedButton(
                         onClick = {
                             scope.launch {
                                 viewModel.updateWishlist(
@@ -353,13 +353,9 @@ fun WishlistDetailsScreen(
                                 )
                             }
                         },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.errorContainer,
-                            contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                        ),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Cancel Item")
+                        Text("Cancel Item" , color= MaterialTheme.colorScheme.error)
                     }
                 }
             }

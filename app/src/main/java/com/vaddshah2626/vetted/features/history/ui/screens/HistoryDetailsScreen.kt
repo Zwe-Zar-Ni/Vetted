@@ -68,7 +68,7 @@ fun HistoryDetailsScreen(
     val sources = history?.sources
 
     var ratingIndicator = ""
-    for (i in 0..9) {
+    for (i in 1..5) {
         ratingIndicator += if (i < (item?.desireRating ?: 0)) {
             "♥\uFE0E"
         } else {
@@ -153,7 +153,7 @@ fun HistoryDetailsScreen(
                             color = TextTheme.colors.textSecondary
                         )
                         Text(
-                            "Desire Rating : ${item.desireRating} / 10",
+                            "Desire Rating : ${item.desireRating} / 5",
                             style = MaterialTheme.typography.bodySmall,
                             color = TextTheme.colors.textSecondary
                         )
