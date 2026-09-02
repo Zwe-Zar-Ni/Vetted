@@ -20,7 +20,11 @@ class WishlistRepository(private val dao: WishlistDao) {
         dao.updateWishlist(wishlist)
     }
 
-    fun getWishlistDetails(id : Int) : Flow<WishlistWithDetails> {
+    suspend fun deleteWishlist(wishlist: Wishlist) {
+        dao.deleteWishlist(wishlist)
+    }
+
+    fun getWishlistDetails(id : Int) : Flow<WishlistWithDetails?> {
         val wishlist = dao.getWishlistDetails(id)
         return wishlist
     }

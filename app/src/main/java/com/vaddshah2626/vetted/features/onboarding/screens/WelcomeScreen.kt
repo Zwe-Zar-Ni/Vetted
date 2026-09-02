@@ -45,7 +45,7 @@ fun WelcomeScreen(
         } else if (categories!!.isEmpty()) {
             viewModel.seedInitialCategories()
         } else {
-//            onContinue()
+            onContinue()
         }
     }
 

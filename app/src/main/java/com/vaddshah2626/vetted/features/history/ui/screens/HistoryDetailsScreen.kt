@@ -68,7 +68,7 @@ fun HistoryDetailsScreen(
     val sources = history?.sources
 
     var ratingIndicator = ""
-    for (i in 1..5) {
+    for (i in 0..4) {
         ratingIndicator += if (i < (item?.desireRating ?: 0)) {
             "♥\uFE0E"
         } else {

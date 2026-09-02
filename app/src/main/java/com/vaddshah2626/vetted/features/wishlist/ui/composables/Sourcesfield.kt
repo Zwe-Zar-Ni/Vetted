@@ -149,11 +149,12 @@ fun SourcesField(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .height(30.dp).clickable(
+                        .height(30.dp)
+                        .clickable(
                             onClick = {
-                                if(src.url?.contains("https") ?: false) {
+                                if (src.url?.contains("https") ?: false) {
                                     uriHandler.openUri(src.url)
-                                } else if(src.url?.isNotEmpty() ?: false) {
+                                } else if (src.url?.isNotEmpty() ?: false) {
                                     clipboardManager.setText(AnnotatedString(src.url))
                                     Toast.makeText(
                                         context,

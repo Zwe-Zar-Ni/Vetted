@@ -1,6 +1,7 @@
 package com.vaddshah2626.vetted.features.wishlist.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -25,7 +26,7 @@ interface WishlistDao {
     @Query("SELECT * FROM wishlists WHERE ID=:id")
     fun getWishlistDetails(
         id: Int
-    ): Flow<WishlistWithDetails>
+    ): Flow<WishlistWithDetails?>
 
     @Query("SELECT * FROM categories")
     fun getAllCategories(): Flow<List<Category>>
@@ -35,6 +36,9 @@ interface WishlistDao {
 
     @Update
     suspend fun updateWishlist(wishlist: Wishlist)
+
+    @Delete
+    suspend fun deleteWishlist(wishlist : Wishlist)
 
     @Query("UPDATE wishlists SET status=:targetStatus WHERE status=:currentStatus AND cool_off_until < :currentTime")
     suspend fun checkWishlistsStatuses(
